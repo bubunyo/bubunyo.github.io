@@ -3,7 +3,7 @@ title_left    : "5"
 title_right   : " Error" # default: ""
 description   : "Thoughts, stories and ideas with a heavy African context"
 keywords      : "thoughts, stories, ideas, software, ghana, afradio, culture, thinkspace"
-url           : https://5Error.com # site url
+url           : "" # https://5Error.com # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "" # image uri like logo/cover image for site seo
 
