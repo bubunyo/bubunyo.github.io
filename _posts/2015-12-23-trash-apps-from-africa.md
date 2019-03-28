@@ -1,0 +1,26 @@
+---
+layout: post
+title: "Trash Apps from Africa"
+description: "Trash Apps from Africa"
+comments: true
+keywords: "africa, trash apps, app design, android app design, ios app design"
+published: true
+---
+
+The world has gone through a paradigm shift. A shift in which mobile phones have become the focal point of our very existence. Everything you can think of and want to do, there is an app for it. Everything! From sex to learning new languages and everything in between. Despite our many problems, Africa has not been left behind in this shift. In fact some may say Africa is ahead of this shift. In Africa, everybody has a device, that can at least, make a phone call and receive text messages. The rate at which we have adopted mobile phones in our daily lives is astonishing. This growing rate has shown no signs of slowing down. I doubt it will. Mobile phones have become a utility for all rather than a luxury for the affluent in society. I can not over emphasize how much this has gone to improve lives. Because that is common knowledge.
+
+The Adoption of smartphones in the part of the world has gone through the roof. everybody wants Whatsapp. Personally, I think that is the single most motivating factor for people in this part to get a smart phone. Eventually people will migrate from the yams (feature phones as we call it here). I’ve never been so sure about the future than this. People also want Facebook. and all the cool apps various app stores have to offer. Twitter, Vine, Instagram, Facebook to say the least.
+
+All this makes me feel good. In this direction, Africa is moving forward, and a tremendous speed at that also. A direction i am glad to be a part of. But there is one question that nags me; How many home made apps are used by Africans?.
+
+This is not a cry for Africa to adopt things made African. NO!. That is a stupid cry. I will not pretend to be a saintly African evangelist who has come to preach to you goodness, righteousness and how glad it will make your heart along with the salvation it will bring to your soul if you adopt the trash our ecosystem has generated, which has the capacity to run on a snapdragon processor and can be started by pressing a hideos looking hieroglyphic on your mobile screen. Some may even call it an app. Never!. I will not pretend to not be guilty in that respect as i very much am. The only African made apps i have on my phone are Slydepay, a payment app, i have never used and one i downloaded because, i'm friends with Edmond who is one of the developers, and GHConstituion, my very first app on the playstore, one i keep because i built, and hardly ever use. I will not bat an eyelid to remove these apps to free up space on my device so i can install something western made. I think i already have, without remorse.
+
+If you think some of what am saying are not true, just ask an African to remove Whatsapp, and if you leave with all your teeth intact, with only insults directed at your whole family, you are among the lucky ones.
+
+I don’t think the problem of we not using African app has anything to do with the fact that they are made in Africa. People who use apps don’t give a f*ck where an app is made. Whatsapp can be made in Syria, Facebook in North Korea and instagram in Iraq for all they care. So far as it serves a purpose, people will gloss over the small details that don't matter.
+
+What a lot of developers in this part of the world miss is the keyword ‘purpose’ when making apps. People can download apps out of pity and the fact it was made by a fellow black brother on the continent. But those downloads can only go so far for so long. It's worse if your app is intended to be a business. I'm sorry to disappoint you, close shop before you waste investor money if you have any, be it your own.
+
+Mobile apps, have to be designed, to every detail, to the smallest intricate detail. From the way icons will look like on different screens; Amoled or LCD, how screens transition into each other, To even how the colors in the app make users feel. That is the very thing i think is lacking in the design of mobile apps in this part of the world. In truth no user will notice the fact that you used some complicated algorithm written by the brightest developer of the lot, to get and arrange some particular set of data when you UI looks like crap. Sure ur app might do whats its intended to do, bottom line is it still looks ugly. It can be written in Haskell, Scala, Clojure, OCaml, Lisp, Prolog or even Assembly, if it looks horrible, not even the devil can help you. It get worse when your complicated algorithm keeps crashing your app, you are assured of a definite uninstall. That, i wish i was lying about.
+
+We claim to learn app development, when the only thing we are being taught is how to write code, which is the least important part of the whole process of app development. Where is the user experience. What happened to design. How is the business side?. All these might sound over the top but is the very core of an app and if you miss these part, you are doomed to fail. Code is just a small part of the big picture and the sooner we realize that, the sooner we will make apps that are worth keeping.
