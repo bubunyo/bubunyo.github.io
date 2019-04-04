@@ -27,5 +27,7 @@ I am sure Medium made this decision to include stripe as the only payment partne
 
 R.I.P Medium. It was good while it lasted.
 
+Thanks to [Chiamaka Nwolisa](https://twitter.com/Mz_Chi) for reading through and catching issues. 
+
 
 
