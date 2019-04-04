@@ -4,7 +4,7 @@ title: "I moved my blog from Medium, here is why"
 description: "I moved my blog from medium, here is why"
 comments: true
 keywords: "blog, medium, publication, afradio, rip medium"
-published: false
+published: true
 ---
 
 I decided last month to move my personal blog from Medium to my own hosted solution called [5 Error](https://5error.com/) using [Jekyll](https://jekyllrb.com/) and [Github Pages](https://pages.github.com/). In this post I try to outline the very reason for my decission. 
