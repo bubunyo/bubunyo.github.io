@@ -37,19 +37,13 @@ In strongly-typed language like Java you can have multiple catch blocks like thi
 
 ```java
 try {
-
     Obj1 obj1 = GetObj1(); // might throw Exception1
     Obj2 obj2 = GetObj2(obj1) // might throw Exception2
     // do something with obj2
-
 } catch(Exception1 ex) {
-
     // do whatever with ex of type Exception 1
-
 } catch(Exception1 ex) {
-
     // do whatever with ex of type Exception 2
-
 }
 ```
 
@@ -95,15 +89,11 @@ If you are writing the code, the intuition is to write the catch block first and
 
 Golang avoids these three problems entirely by handling errors/exceptions atomically. To put it simply, it is a more lovely form of the multiple try-catch block answer stated above. A typical error handling in golang looks like this.
 
-```golang
+```
 res, err := http.Get("http://example.com/api")
-
 if err != nil {
-
   // handle `err`
-  
 }
-
 // do something with res
 ```
 
