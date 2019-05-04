@@ -201,6 +201,6 @@ if (ex2) {
 // do something with data
 ```
 
-This approach to error handling creates makes it very easy to understand the different failure points in your code, and makes the approach to error unhandeling easy to understand, without relegating it to some obscure levels of your code. 
+This approach to error handling makes it very easy to understand the different failure points in your code and handle them appropriately without relegating it to some obscure levels in your code. 
 
 Let me know what you think. You can reach me on twitter [@KiddBubu](https://twitter.com/KiddBubu).
