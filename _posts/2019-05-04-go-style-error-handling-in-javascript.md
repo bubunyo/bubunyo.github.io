@@ -109,7 +109,7 @@ Secondly, you are forced to think about errors as a first class citizen. You are
 
 Thirdly, if typical try catch block composition involve handling exceptions first, why don't we entrench that pattern? This prevents the mental overhead necessary to keep track of what can throw. The mental impact of this is low. You get an error, you deal with it, you move on. Now, you can do other things.
 
-## This might not seem like massive gains but as your codebase grows in size and complexity, you realize that these little wins compound to make the codebase easier to reason about and maintain.
+This might not seem like massive gains but as your codebase grows in size and complexity, you realize that these little wins compound to make the codebase easier to reason about and maintain.
 
 My job these days at AF Radio involves writing a ton of JavaScript and I set out to create a pattern like this in our codebase.
 
@@ -201,6 +201,6 @@ if (ex2) {
 // do something with data
 ```
 
-With this approach you know exactly what you are getting where. The straightfowardness also helps in easily understanding how error cases are handled in expressions that can err, without relagating them to the bottom.
+This approach to error handling creates makes it very easy to understand the different failure points in your code, and makes the approach to error unhandeling easy to understand, without relegating it to some obscure levels of your code. 
 
 Let me know what you think. You can reach me on twitter [@KiddBubu](https://twitter.com/KiddBubu).
