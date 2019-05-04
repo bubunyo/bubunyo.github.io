@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "On Technical Co-Founders"
+title: "How to find a Technical Co-Founders"
 description: "Any time you think about authentication you think about username and passwords. "
 comments: true
-keywords: "authentication, tech"
+keywords: "technical cofounder, tech, startup, ghana"
 published: false
 ---
 
@@ -18,3 +18,8 @@ Get a technical founder who understands and apprciates the importance of busines
 
 
 And for that you have offered some  You have spoken to a number of tech guys who have rejected   This is all well and nice a
+
+#### What not to do
+
+1.  Ask a very someone in your immidiate circles with a technical background to become 
+2. 
