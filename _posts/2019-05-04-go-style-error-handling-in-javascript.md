@@ -4,7 +4,7 @@ title: "Payment"
 description: "Golang style error handling in Javascript"
 comments: true
 keywords: "devcongress, tech, ghana, error handling, golang exceptions, javascript, tech"
-published: true
+published: false
 ---
 
 When I first learnt there was no  try-catch in golang, I was sceptical. What could be better than a simple try-catch block. I realized what glang had was way better for many reasons. In other for me to put my point  accross, lets first explore the anatomy of a typical try-catch block. 
