@@ -4,7 +4,7 @@ title: 'Golang style error handling pattern in Javascript'
 description: 'Golang style error handling pattern in Javascript'
 comments: true
 keywords: 'devcongress, tech, ghana, error handling, golang exceptions, javascript, tech'
-published: false
+published: true
 ---
 
 When I first learnt there was no try-catch in golang, I was sceptical. What could be better than a simple try-catch block. I soon realized that what golang had was much better for many reasons. In other for me to put my point across, let's first explore the anatomy of a typical try-catch block.
@@ -204,3 +204,5 @@ if (ex2) {
 This approach to error handling makes it very easy to understand the different failure points in your code and handle them appropriately without relegating it to some obscure levels in your code. 
 
 Let me know what you think. You can reach me on twitter [@KiddBubu](https://twitter.com/KiddBubu).
+
+Thanks to [Chiamaka Nwolisa](https://twitter.com/Mz_Chi) for reading through with her super editing powers.
