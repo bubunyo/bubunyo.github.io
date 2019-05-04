@@ -97,9 +97,13 @@ Golang avoids these three problems entirely by handling errors/exceptions atomic
 
 ```golang
 res, err := http.Get("http://example.com/api")
+
 if err != nil {
+
   // handle `err`
+  
 }
+
 // do something with res
 ```
 
