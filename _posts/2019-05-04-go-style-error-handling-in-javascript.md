@@ -7,8 +7,7 @@ keywords: 'devcongress, tech, ghana, error handling, golang exceptions, javascri
 published: false
 ---
 
-When I first learnt there was no try-catch in golang, I was sceptical. What could be better than a simple try-catch block.
-I soon realized that what golang had was much better for many reasons. In other for me to put my point across, let's first explore the anatomy of a typical try-catch block.
+When I first learnt there was no try-catch in golang, I was sceptical. What could be better than a simple try-catch block. I soon realized that what golang had was much better for many reasons. In other for me to put my point across, let's first explore the anatomy of a typical try-catch block.
 
 A simple `try-catch` block takes this form.
 
