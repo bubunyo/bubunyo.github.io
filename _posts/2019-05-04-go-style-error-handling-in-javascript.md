@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Payment"
+title: "Golang style error handling in Javascript"
 description: "Golang style error handling in Javascript"
 comments: true
 keywords: "devcongress, tech, ghana, error handling, golang exceptions, javascript, tech"
