@@ -7,6 +7,19 @@ keywords: 'devcongress, tech, ghana, error handling, golang exceptions, javascri
 published: true
 ---
 
+###### Updates
+
+[delventhalz](https://www.reddit.com/user/delventhalz) mentioned on [reddit](https://www.reddit.com/r/javascript/comments/bkokgc/golang_error_handling_pattern_in_javascript/emicc5h?utm_source=share&utm_medium=web2x) that you can also easily achieve the same thing with 
+
+```javascript
+const res = await fetch('https://example.com/api')
+    .catch(err => // Do error stuff);
+```
+
+I admit. Its a far easier, less messy way to achieve the same results, with less boilerplate. I think i need to go refactor my code now.
+
+---
+
 When I first learnt there was no try-catch in golang, I was sceptical. What could be better than a simple try-catch block. I soon realized that what golang had was much better for many reasons. In other for me to put my point across, let's first explore the anatomy of a typical try-catch block.
 
 A simple `try-catch` block takes this form.
