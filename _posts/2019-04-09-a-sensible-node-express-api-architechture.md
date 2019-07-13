@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Payment"
+title: "A Sensible Node Express Api Architecture: Rocket Api"
 description: "A Sensible Node Express Api Architecture: Rocket Api"
 comments: true
 keywords: "devcongress, tech, meetup"
@@ -14,3 +14,4 @@ The same cannot be said for any js framework, include express api. When we start
 1. Keeping relevant and related logic in the same place. The key advantage for us was to be abel to work on different multiple subsystems without necessarily cause a huge merge confict. Team members could be assinged work in subsystems and all of it would fit nicely. 
 2. Test files should not be far from the files they are testing. 
 3. It should be intuitive. 
+
