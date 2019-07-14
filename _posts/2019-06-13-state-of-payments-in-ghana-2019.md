@@ -24,3 +24,5 @@ I dont know how we can fix payments but what I know is, starting a new one is no
 
 Unless there is a change to our approach to this solution, best believe, we are all at the mercy of the best of the broken payment systems. 
 
+Do you have any other theories or belive different, let me know on [twitter](https://twitter.com/KiddBubu)
+
