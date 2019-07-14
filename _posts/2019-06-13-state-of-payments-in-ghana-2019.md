@@ -4,12 +4,11 @@ title: "The state of payment apps in Ghana 2019"
 description: "The state of payment apps in Ghana 2019"
 comments: true
 keywords: "authentication, tech, ghana, afradio, mpower, hubtel, slide pay,"
-published: false
+published: true
 ---
 
 
-
-Once every month someone somewhere in Ghana builds and releases yet another payment platform, because the existing ones dont work.
+The year is 2019. But once every month, someone somewhere in Ghana builds and releases yet another payment platform, because the existing ones dont work.
 
 This has been the case for the past seven or so years; yet one sure bet I can place in this tech eco-system is that we will see a new payment system before the year ends. 
 
