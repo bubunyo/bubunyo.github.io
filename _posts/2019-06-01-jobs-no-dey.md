@@ -1,5 +1,5 @@
 ---
-layout: post
+href="/books/{{$book->id}}"layout: post
 title: "Payment"
 description: "A Sensible Node Express Api Architecture: Rocket Api"
 comments: true
