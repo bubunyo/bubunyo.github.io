@@ -42,3 +42,4 @@ Essentially this is a series on things that reduce the cognitive load on develop
 
 Now that we know what it means to have a development process that scales, we can talk about some strategies you can use to increase the scalability of your development process in no particular order. 
 
+Thanks to [Chiamaka Nwolisa](https://twitter.com/Mz_Chi) and [Andrew Smith](https://twitter.com/silentworks) going through this article and suggesting changes.
