@@ -1,3 +1,12 @@
+---
+layout: post
+title: "The Hard Truth about Mentorship"
+description: "The Hard Truth about Mentorship"
+comments: true
+keywords: "mentorship, tech, africa"
+published: false
+---
+
 Many people who know me one way or the other know one thing i work tireless on is for new and upcoming devs to get mentored. This comes from a personal story. 
 
 When i began with computers, in high school, the only resources i could consult were an old delphi bible, a unix bible, a generable purpose programming book and 2 other friends(Same Amoah and Victor Kumbol). Most of the things i picked up within the next 2 years were all from these resources. Fast forward to the university studying computer engineering and i was so happy at the fact that i was in a group where the average person knew more than i did and i was ready to learn from my peers. Or so I thought. I turns out, my peers all had exactly the same questions I had. So we hacked until we got answers. And sometimes for days. But we enjoyed the process. That alone was enough to keep us going. 
