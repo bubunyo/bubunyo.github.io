@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "The Hard Truth about Mentorship"
-description: "The Hard Truth about Mentorship"
+title: "The Difficult Truth about Mentorship"
+description: "The Difficult Truth about Mentorship"
 comments: true
 keywords: "mentorship, tech, africa"
 published: false
@@ -15,7 +15,7 @@ When I got out of uni and saw the outside world, I was immidiately enthralled by
 
 Most new developers I have spoken to know they need mentorship and are often eager to get under the wings of a senior even if their time spent is not paid for. Most of them are often surprised when they realize nobody is willing to take them on even though they are ready to render free service. There is a hard truth about mentoring new devs that nobody really tells you. 
 
-This is the hard truth about mentorship. 
+This is the difficult truth about mentorship. 
 
 I will not talk about what the structure of a mentorship should look like, albeit informal or not. I fear that is a conversation beyond the scope of this easy. 
 
