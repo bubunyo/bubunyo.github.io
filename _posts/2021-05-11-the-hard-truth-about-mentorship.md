@@ -4,10 +4,10 @@ title: "The Difficult Truth about Mentorship"
 description: "The Difficult Truth about Mentorship"
 comments: true
 keywords: "mentorship, tech, africa"
-published: false
+published: true
 ---
 
-Many people who know me one way or the other knows one thing I work at tireless is for new and upcoming devs to get mentored. This comes from a personal story. 
+Many people who know me one way or the other knows one thing; I work tireless at getting new and upcoming devs to get mentored. This comes from a personal story. 
 
 When I began with computers in high school, the only resources I could consult were an old delphi manual, a unix bible, a general purpose programming book and 2 other friends(Sam and Victor). Most of the things I picked up within the next 2 years were all from these resources. Fast forward to university where I was studying computer engineering and I was so happy at the fact that I was in a group where the average person knew more than I did and was ready to learn from my peers. Or so I thought. It turns out, my peers all had exactly the same questions I had. So we hacked until we got answers. And sometimes for days. But we enjoyed the process. That alone was enough to keep us going. 
 
