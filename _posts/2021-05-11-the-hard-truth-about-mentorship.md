@@ -28,3 +28,5 @@ I believe there are two main reasons DevCongress works as a mentorship channel. 
 If you are a developer within the African ecosystem, i entreat you to join DevCongress and be part of the community. You will be easily astonished at how much it will give back to you. I know because I am still being blown away. 
 
 This article was prompted after having a chat with [@umfrumf](https://twitter.com/umfrumf)
+
+Thanks to [Andrew Smith](https://twitter.com/silentworks) for editing this piece.
