@@ -9,7 +9,7 @@ published: true
 ---
 In 1981, Jon Postel handed out /8 blocks like they would last forever. Take 16 million addresses, he said. We will never run out. MIT took one. So did Ford, IBM, and a few dozen others. By 2011, IANA gave away the last block. Postel had been dead for 13 years.
 
-This is how we got here. How the internet went from abundance to scarcity. From Postel's paper notebook to IP address marketplaces. From end-to-end connectivity to NAT traversal hell. It is a story about optimism meeting reality, about choosing convenience over architecture, and about how technical debt compounds across decades.
+This is a story of how we got here, how the internet went from abundance to scarcity. From Postel's paper notebook to IP address marketplaces. From end-to-end connectivity to NAT traversal hell. It is a story about optimism meeting reality, about choosing convenience over architecture, and about how technical debt compounds across decades.
 
 ## The Age of Abundance (1981-1990)
 
