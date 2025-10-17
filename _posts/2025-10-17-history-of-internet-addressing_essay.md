@@ -4,7 +4,7 @@ title: "Redis"
 description: "The day the Internet run out of addresses"
 comments: true
 keywords: "internet, ipv4, ipv6"
-published: false
+published: true
 
 ---
 In 1981, Jon Postel handed out /8 blocks like they would last forever. Take 16 million addresses, he said. We will never run out. MIT took one. So did Ford, IBM, and a few dozen others. By 2011, IANA gave away the last block. Postel had been dead for 13 years.
