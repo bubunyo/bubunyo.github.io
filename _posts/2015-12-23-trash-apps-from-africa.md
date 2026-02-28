@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Trash Apps from Africa"
-description: "Trash Apps from Africa"
+description: "African apps fail not because of where they're made, but because code alone isn't enough. A challenge to put design, UX, and the user first."
 comments: true
 keywords: "africa, trash apps, app design, android app design, ios app design"
 published: true
+tags: [design, culture, africa]
 ---
 
 The world has gone through a paradigm shift. A shift in which mobile phones have become the focal point of our very existence. Everything you can think of and want to do, there is an app for it. Everything! From sex to learning new languages and everything in between. Despite our many problems, Africa has not been left behind in this shift. In fact some may say Africa is ahead of this shift. In Africa, everybody has a device, that can at least, make a phone call and receive text messages. The rate at which we have adopted mobile phones in our daily lives is astonishing. This growing rate has shown no signs of slowing down. I doubt it will. Mobile phones have become a utility for all rather than a luxury for the affluent in society. I can not over emphasize how much this has gone to improve lives. Because that is common knowledge.

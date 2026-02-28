@@ -1,10 +1,11 @@
 ---
 layout: post
 title: 'Golang style error handling pattern in Javascript'
-description: 'Golang style error handling pattern in Javascript'
+description: "Try-catch buries error handling at the bottom of your logic. Here's how to borrow Go's tuple-return pattern and handle errors right where they happen."
 comments: true
 keywords: 'devcongress, tech, ghana, error handling, golang exceptions, javascript, tech'
 published: true
+tags: [javascript, engineering, go]
 ---
 
 ###### Updates

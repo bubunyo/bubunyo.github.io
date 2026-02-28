@@ -18,6 +18,12 @@ layout: default
     <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
   </div>
 
+  {% if page.tags.size > 0 %}
+  <div class="post-tags">
+    {% for tag in page.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
   <div class="post-content" itemprop="articleBody">
     {{ content }}
   </div>

@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Sharing Crazy Bold Ideas"
-description: "The impact of sharing crazy bold ideas"
+description: "In high school, pitching a GTA-style game set in Accra got laughs — and a few people paying close attention. Sharing bold ideas, even the ones that fail, leaves a mark."
 comments: true
 keywords: "sharing, crazy, bold, ideas"
 published: true
+tags: [culture, startups, ideas]
 ---
 
 In 2007 I got into [Mfantsipim High School](https://en.wikipedia.org/wiki/Mfantsipim_School) and my tech journey began. My school was nicked named Botwe, after the hill on which it is situated. We further shortened it to B-Town.  I started to pick up programming, I started with ruby and html. It was a boarding school and computers were not allowed. So we wrote out programs on scrap notes and typed them out on the computers when we got the chance. That was once a week. 

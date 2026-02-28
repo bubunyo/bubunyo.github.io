@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Open sourcing Ambre"
-description: "simple feedback tool for androiod apps"
+description: "Ambre was a mobile feedback tool with real traction — until Doorbell and Instabug made it irrelevant. Rather than let it die quietly, we open sourced it."
 comments: true
 keywords: "ambre, open sourcing"
 published: true
+tags: [android, open-source, startups]
 ---
 
 ![Ambre logo at the time](/assets/images/1*-hMHLGy4xqH4Vl0pPPmfYw.png "Ambre logo at the time")

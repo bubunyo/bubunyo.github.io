@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Take a step back. Grow up for a second."
-description: "If you aspire to be a software entrepreneur, you have a lot to learn. The more I learnt and looked ahead, the more I realized that I knew nothing"
+description: "Before writing a single line of code, ask whether the solution is actually an app. The most dangerous instinct in software is reaching for code before thinking."
 comments: true
 keywords: "dummy content, lorem ipsum"
 published: true
+tags: [startups, product, engineering]
 ---
 
 If you aspire to be a software entrepreneur, you have a lot to learn. The more I learnt and looked ahead, the more I realized that I knew nothing.

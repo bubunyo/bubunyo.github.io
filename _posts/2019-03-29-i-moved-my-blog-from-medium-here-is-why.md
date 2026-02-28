@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "I moved my blog from Medium, here is why"
-description: "I moved my blog from medium, here is why"
+description: "Medium's partner program requires a Stripe account. Stripe isn't available in most of Africa. That quietly excludes African writers from the algorithm — and why I had to leave."
 comments: true
 keywords: "blog, medium, publication, afradio, rip medium"
 published: true
+tags: [writing, africa, culture]
 ---
 
 I decided last month to move my personal blog from Medium to my own hosted solution called [5 Error](https://5error.com/) using [Jekyll](https://jekyllrb.com/) and [Github Pages](https://pages.github.com/). In this post I try to outline the very reason for my decision. 

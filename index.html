@@ -25,12 +25,13 @@ title: Home
       <span class="meta-sep">&middot;</span>
       <span>{{ featured.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
     </p>
+    {% if featured.tags.size > 0 %}
+    <p class="post-item-tags">
+      {% for tag in featured.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+    </p>
+    {% endif %}
   </article>
   {% endif %}
-
-  <div class="section-header">
-    <p class="section-label">Latest</p>
-  </div>
 
   {% for post in site.posts offset:1 %}
   <article class="post-item">
@@ -46,6 +47,11 @@ title: Home
         <span class="meta-sep">&middot;</span>
         <span>{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
       </p>
+      {% if post.tags.size > 0 %}
+      <p class="post-item-tags">
+        {% for tag in post.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+      </p>
+      {% endif %}
     </div>
     {% if post.categories.size > 0 %}
     <div class="post-item-category">{{ post.categories.first | upcase }}</div>

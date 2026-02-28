@@ -96,46 +96,23 @@ hr {
   }
 }
 
-// ─── Nav ──────────────────────────────────────────────────────────────────────
-
-.nav {
-  border-top: 2px solid #111111;
-  border-bottom: 1px solid #e0e0e0;
-  min-height: auto;
-
-  .container {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+.masthead-accent {
+  color: $red-color;
 }
 
-.nav-list {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0.75rem 0;
-  gap: 2rem;
+.masthead-tagline {
+  font-family: $base-font-family;
+  font-size: rem(15);
+  color: #888888;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+  letter-spacing: 0;
+}
 
-  li {
-    display: inline-block;
-  }
+// ─── Nav ──────────────────────────────────────────────────────────────────────
 
-  a {
-    font-family: $heading-font-family;
-    font-size: rem(12);
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #111111;
-    text-decoration: none;
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: #888888;
-    }
-  }
+.nav-rule {
+  border-top: 2px solid $red-color;
 }
 
 // ─── Featured Post ────────────────────────────────────────────────────────────
@@ -143,7 +120,7 @@ hr {
 .post-featured {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 2px solid $red-color;
   margin-bottom: 2.5rem;
 }
 
@@ -178,7 +155,7 @@ hr {
     &:hover,
     &:focus,
     &:active {
-      color: #737373;
+      color: $red-color;
     }
   }
 }
@@ -201,7 +178,7 @@ hr {
 // ─── Post List ────────────────────────────────────────────────────────────────
 
 .section-header {
-  border-top: 2px solid #1f1f1f;
+  border-top: 2px solid $red-color;
   margin-bottom: 0;
 }
 
@@ -245,7 +222,7 @@ hr {
     &:hover,
     &:focus,
     &:active {
-      color: #555555;
+      color: $red-color;
     }
   }
 }
@@ -253,7 +230,7 @@ hr {
 .post-item-desc {
   font-family: $base-font-family;
   font-size: rem(17);
-  color: #444444;
+  color: #909090;
   line-height: 1.5;
   margin: 0 0 0.4rem;
 }
@@ -280,6 +257,31 @@ hr {
   margin: 0;
 }
 
+.post-item-tags {
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.tag-pill {
+  display: inline-block;
+  font-family: $sans-font-family;
+  font-size: rem(10);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #909090;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  padding: 0.2em 0.55em;
+  margin-right: 0.25rem;
+}
+
 .meta-sep {
   margin: 0 0.3rem;
   color: #cccccc;
@@ -291,7 +293,7 @@ hr {
   @extend .clearfix;
   margin-top: 3rem;
   padding: 2rem 0 0;
-  border-top: 2px solid #111111;
+  border-top: 2px solid $red-color;
 
   a {
     color: #111111;
@@ -300,7 +302,7 @@ hr {
     &:hover,
     &:focus,
     &:active {
-      color: #888888;
+      color: $red-color;
     }
   }
 }
@@ -326,7 +328,8 @@ hr {
 
 .footer-brand-desc {
   font-family: $base-font-family;
-  font-size: rem(16);
+  font-size: rem(15);
+  font-style: italic;
   color: #888888;
   line-height: 1.5;
   margin: 0;
@@ -356,8 +359,8 @@ hr {
 
   li {
     margin-bottom: 0.4rem;
-    font-family: $base-font-family;
-    font-size: rem(16);
+    font-family: $sans-font-family;
+    font-size: rem(13);
   }
 }
 
@@ -441,7 +444,8 @@ hr {
     text-decoration: none;
 
     &:hover {
-      border-bottom-color: #121212;
+      color: $red-color;
+      border-bottom-color: $red-color;
     }
   }
 
@@ -474,7 +478,7 @@ hr {
     &:hover,
     &:focus,
     &:active {
-      color: #121212;
+      color: $red-color;
     }
   }
 }

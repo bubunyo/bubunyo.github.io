@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Define happiness"
-description: "Define what happiness means to you and leave by that standard"
+description: "A visit to Wli, a farming village in Ghana's Volta Region, raises a quiet question: what does happiness actually mean to you, and are you living by that answer?"
 comments: true
 keywords: "happiness, happy"
 published: true
+tags: [culture, ghana, life]
 ---
 
 There is a small village in the eastern part of Ghana. On the outskirts of Hohoe in the Volta region. It's called Wli. This town is home to about a thousand people, whose main source of livelihood is farming. This village is also home to the highest waterfall in West Africa with a height of about 143 meters from the top of the upper falls to the pool into which it pours. So there are a lot of tourist who visit this village to see the waterfall in all of its glory.
