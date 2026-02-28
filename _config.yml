@@ -7,7 +7,6 @@ url           : "" # https://5Error.com # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "" # image uri like logo/cover image for site seo
 
-google_analytics  : UA-137058486-1
 twitter_username  : "KiddBubu"
 comments_enabled  : true
 giscus:
