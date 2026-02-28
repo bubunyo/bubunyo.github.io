@@ -26,4 +26,4 @@ So we packed up Ambre. We still used it in [Chanl](https://twitter.com/ChanlHQ) 
 
 In the meantime, get [Chanl](https://twitter.com/ChanlHQ) and begin experiencing tangle-free group chats.
 
-Available for download here: <http:j.mp/chanl>
+Available for download here: <http://j.mp/chanl>
