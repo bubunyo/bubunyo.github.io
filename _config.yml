@@ -9,8 +9,14 @@ cover         : "" # image uri like logo/cover image for site seo
 
 google_analytics  : UA-137058486-1
 twitter_username  : "KiddBubu"
-comments_enabled  : false # if enabled (set to true), please provide your disqus_username
-disqus_shortname  : ""
+comments_enabled  : true
+giscus:
+  repo            : "bubunyo/bubunyo.github.io"
+  repo_id         : "MDEwOlJlcG9zaXRvcnkxNzgyNTU1Njg"          # paste from giscus.app
+  category        : "General"          # paste from giscus.app
+  category_id     : "DIC_kwDOCp_20M4C3ahA"          # paste from giscus.app
+  theme           : "light"
+  lang            : "en"
 postshare_enabled : true
 
 # Build settings
