@@ -20,7 +20,7 @@ layout: default
 
   {% if page.tags.size > 0 %}
   <div class="post-tags">
-    {% for tag in page.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+    {% for tag in page.tags %}<a class="tag-pill" href="{{ '/tags/' | append: tag | prepend: site.baseurl | prepend: site.url }}">{{ tag }}</a>{% endfor %}
   </div>
   {% endif %}
 
