@@ -275,8 +275,8 @@ hr {
   font-size: rem(10);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #909090;
-  border: 1px solid #e0e0e0;
+  color: $red-color;
+  border: 1px solid $red-color;
   border-radius: 2px;
   padding: 0.2em 0.55em;
   margin-right: 0.25rem;
@@ -401,6 +401,10 @@ hr {
   letter-spacing: -0.01em;
   margin: 0 0 0.75rem;
   color: #121212;
+
+  &.masthead-accent {
+    color: $red-color;
+  }
 
   @media (min-width: 600px) {
     font-size: rem(48);
