@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What is in a String... In Go"
-description: "Understanding how strings work in Go: memory management, immutability, and why every concatenation is an allocation — with practical patterns to fix it."
+description: "Understanding how strings work in Go: memory management, immutability, and why every concatenation is an allocation, with practical patterns to fix it."
 comments: true
 keywords: "golang, go, strings, performance, garbage collection, tech"
 published: true

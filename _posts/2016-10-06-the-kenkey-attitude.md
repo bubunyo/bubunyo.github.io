@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The kenkey attitude"
-description: "Kenkey is a fermented Ghanaian staple that comes with an unexpected perk on workdays — technically, you're drinking on the job."
+description: "Kenkey is a fermented Ghanaian staple. Eat it at lunch and you are, technically, drinking on the job."
 comments: true
 keywords: "ghana, kenkey"
 published: true

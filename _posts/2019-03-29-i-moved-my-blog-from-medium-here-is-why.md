@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "I moved my blog from Medium, here is why"
-description: "Medium's partner program requires a Stripe account. Stripe isn't available in most of Africa. That quietly excludes African writers from the algorithm — and why I had to leave."
+description: "Medium's partner program requires a Stripe account. Stripe isn't available in most of Africa. That quietly excludes African writers from the algorithm. So I left."
 comments: true
 keywords: "blog, medium, publication, afradio, rip medium"
 published: true

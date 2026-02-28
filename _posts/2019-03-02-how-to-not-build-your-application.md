@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to not build your application"
-description: "Seven hard-won lessons for first-time product builders: ship fast, resist feature requests, outsource ruthlessly, and remember that technology scales a solution — it doesn't create one."
+description: "Seven hard-won lessons for first-time product builders: ship fast, resist feature requests, outsource ruthlessly. Technology scales a solution. It does not create one."
 comments: true
 keywords: "how to build your application, startup, ghana"
 published: true

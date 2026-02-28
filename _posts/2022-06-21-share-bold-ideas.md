@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Sharing Crazy Bold Ideas"
-description: "In high school, pitching a GTA-style game set in Accra got laughs — and a few people paying close attention. Sharing bold ideas, even the ones that fail, leaves a mark."
+description: "In high school, pitching a GTA-style game set in Accra got laughs, and a few people paying close attention. Sharing bold ideas, even the ones that fail, leaves a mark."
 comments: true
 keywords: "sharing, crazy, bold, ideas"
 published: true

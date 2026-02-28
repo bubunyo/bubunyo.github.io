@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Open sourcing Ambre"
-description: "Ambre was a mobile feedback tool with real traction — until Doorbell and Instabug made it irrelevant. Rather than let it die quietly, we open sourced it."
+description: "Ambre was a mobile feedback tool with real traction. When Doorbell and Instabug made it irrelevant, the right move was to open source it."
 comments: true
 keywords: "ambre, open sourcing"
 published: true

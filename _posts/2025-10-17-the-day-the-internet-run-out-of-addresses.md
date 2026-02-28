@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The day the internet run out of addresses"
-description: "The story of how IPv4 exhaustion nearly broke the internet, the hacks that held it together — NAT, CIDR, address markets — and what three decades of IPv6 delays teach us about technical debt."
+description: "The story of how IPv4 exhaustion nearly broke the internet, the hacks that held it together (NAT, CIDR, address markets), and what three decades of IPv6 delays teach us about technical debt."
 comments: true
 keywords: "internet, ipv4, ipv6, CIDR"
 published: true
