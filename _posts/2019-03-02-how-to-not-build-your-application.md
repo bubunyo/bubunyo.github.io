@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "How to not build your application"
-description: "how to build your application"
+description: "Seven hard-won lessons for first-time product builders: ship fast, resist feature requests, outsource ruthlessly. Technology scales a solution. It does not create one."
 comments: true
 keywords: "how to build your application, startup, ghana"
 published: true
+tags: [product, engineering, startups]
 ---
 
 Every now and then i get asked by brilliant people to help them test their products, and most of the time I leave those encounter feeling less enthusiastic about using the product or service than I was before I came into the meeting. Yes your idea is good, I want to use your product but does your product do what you say it does? Most of the time it doesn't. Here are a few tips on what to do and what not to to do for creating your first product based on my short experience doing so.

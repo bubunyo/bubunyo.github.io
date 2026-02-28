@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "The day the internet run out of addresses"
-description: "The day the Internet run out of addresses"
+description: "The story of how IPv4 exhaustion nearly broke the internet, the hacks that held it together (NAT, CIDR, address markets), and what three decades of IPv6 delays teach us about technical debt."
 comments: true
 keywords: "internet, ipv4, ipv6, CIDR"
 published: true
+tags: [engineering, internet, history]
 
 ---
 In 1981, Jon Postel handed out /8 blocks like they would last forever. Take 16 million addresses, he said. We will never run out. MIT took one. So did Ford, IBM, and a few dozen others. By 2011, IANA gave away the last block. Postel had been dead for 13 years.

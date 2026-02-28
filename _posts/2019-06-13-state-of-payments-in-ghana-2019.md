@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "The state of payment apps in Ghana 2019"
-description: "The state of payment apps in Ghana 2019"
+description: "Ghana has dozens of payment startups competing on a broken foundation. More apps won't fix the infrastructure. That requires political will, not more venture capital."
 comments: true
 keywords: "authentication, tech, ghana, afradio, mpower, hubtel, slide pay,"
 published: true
+tags: [fintech, ghana, africa]
 ---
 
 

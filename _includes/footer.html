@@ -1,5 +1,21 @@
 <footer class="site-footer">
   <div class="container">
-    <small class="block">&copy; {{ site.time | date: '%Y' }} {{ site.author.name }} &middot; <a href="https://twitter.com/KiddBubu" target="_blank">Twttr</a> &middot; <a href="https://github.com/bubunyo" target="_blank">Gthb</a> </small>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-brand-name"><span class="masthead-accent">5</span>error</p>
+        <p class="footer-brand-desc">{{ site.description }}</p>
+      </div>
+      <div class="footer-connect">
+        <p class="footer-col-label">Connect</p>
+        <ul>
+          <li><a href="https://x.com/KiddBubu" target="_blank">x.com/KiddBubu</a></li>
+          <li><a href="https://github.com/bubunyo" target="_blank">github.com/bubunyo</a></li>
+          <li><a href="https://www.linkedin.com/in/bubunyonyavor/" target="_blank">linkedin.com/in/bubunyonyavor</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</small>
+    </div>
   </div>
 </footer>

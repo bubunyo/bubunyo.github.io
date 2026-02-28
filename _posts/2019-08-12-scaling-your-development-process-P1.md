@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "A scalable development process - Part 1"
-description: "A scalable development process - Part 1"
+description: "Scaling your codebase is secondary to scaling your team's process. Five things your development workflow needs before your app ever needs to handle load."
 comments: true
 keywords: "devcongress, tech, meetup, scaling, scalable development process"
 published: true
+tags: [engineering, process, teams]
 ---
 
 Every so often when we build apps, one question we constantly try to answer is "How will this app scale?".  This leads us to take some steps and measures to optimize our apps in the hope that when we get 5,000 users on launch day or 5,000 api request per second on launch day, our servers dont go down. Unless you operate at the scale of Google or Facebook, you will not get 5,000 user on launch day. So if you build to handle traffic from 5,000 people or 5,000 requests per second it becomes premature optimization. And in the words of Donald Knuth himself, [premature optimization? It is the root of all evil.](https://en.wikiquote.org/wiki/Donald_Knuth)

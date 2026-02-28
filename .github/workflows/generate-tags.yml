@@ -1,0 +1,51 @@
+name: Generate Tag Pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '_posts/**'
+
+jobs:
+  generate-tags:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate missing tag pages
+        run: |
+          mkdir -p tags
+
+          # Extract all unique tags from post front matter
+          tags=$(grep -rh "^tags:" _posts/ | sed 's/tags://g' | tr -d '[]' | tr ',' '\n' | tr -d ' ' | sort -u)
+
+          created=0
+          for tag in $tags; do
+            file="tags/${tag}.md"
+            if [ ! -f "$file" ]; then
+              echo "Creating $file"
+              cat > "$file" << EOF
+          ---
+          layout: tag
+          tag: ${tag}
+          title: "${tag}"
+          permalink: /tags/${tag}/
+          ---
+          EOF
+              created=$((created + 1))
+            fi
+          done
+
+          echo "Created $created new tag page(s)"
+          echo "created=$created" >> $GITHUB_OUTPUT
+        id: generate
+
+      - name: Commit new tag pages
+        if: steps.generate.outputs.created != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tags/
+          git commit -m "Generate tag pages [skip ci]"
+          git push

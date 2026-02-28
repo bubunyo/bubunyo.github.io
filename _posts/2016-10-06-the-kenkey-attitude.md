@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "The kenkey attitude"
-description: "Kenkey for lunch on a work day simple means you get to drink on the job."
+description: "Kenkey is a fermented Ghanaian staple. Eat it at lunch and you are, technically, drinking on the job."
 comments: true
 keywords: "ghana, kenkey"
 published: true
+tags: [culture, ghana, food]
 ---
 
 I am a Ghanaian. I love kenkey. But most foreigners can't seem to grasp the fact that we love food that is fermented.

@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "What is in a String... In Go"
-description: "Understanding how strings work in Go: memory management, immutability, and performance considerations when manipulating strings."
+description: "Understanding how strings work in Go: memory management, immutability, and why every concatenation is an allocation, with practical patterns to fix it."
 comments: true
 keywords: "golang, go, strings, performance, garbage collection, tech"
 published: true
+tags: [go, engineering, performance]
 ---
 
 Strings are ubiquitous. You use them everywhere; Logs, APIs, user input, configuration, serialization. They feel like a primitive type. You declare them, concatenate them, pass them around, and it all just works.

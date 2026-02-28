@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "The Difficult Truth about Mentorship"
-description: "The Difficult Truth about Mentorship"
+description: "One-on-one mentorship is a luxury most early-career African developers can't access. The honest answer isn't to chase a mentor. It's to find your community."
 comments: true
 keywords: "mentorship, tech, africa"
 published: true
+tags: [culture, africa, career]
 ---
 
 Many people who know me one way or the other knows one thing; I work tireless at getting new and upcoming devs to get mentored. This comes from a personal story. 
