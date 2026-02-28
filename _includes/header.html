@@ -1,3 +1,12 @@
 <header class="site-header">
+  <div class="container">
+    <div class="site-dateline">
+      <span>{{ site.time | date: "%A, %B %-d, %Y" }}</span>
+      <span>Independent Writing</span>
+    </div>
+    <div class="site-masthead">
+      <a class="masthead-title" href="{{ '/' | prepend: site.baseurl | prepend: site.url }}">5error</a>
+    </div>
+  </div>
   {% include nav.html %}
 </header>

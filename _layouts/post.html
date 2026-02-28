@@ -2,15 +2,30 @@
 layout: default
 ---
 
-<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} &middot; <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
-    <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-  </header>
+<article class="post-article container" itemscope itemtype="http://schema.org/BlogPosting">
+
+  {% if page.categories.size > 0 %}
+  <span class="post-header-category">{{ page.categories.first | upcase }}</span>
+  {% endif %}
+
+  <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+
+  <div class="post-meta-bar">
+    <span itemprop="author">{{ page.author | default: site.author.name }}</span>
+    <span>&middot;</span>
+    <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %-d, %Y" }}</time>
+    <span>&middot;</span>
+    <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+  </div>
+
   <div class="post-content" itemprop="articleBody">
     {{ content }}
-    {% include post-share.html %}
   </div>
+
+  <div class="post-back">
+    <a href="{{ '/' | prepend: site.baseurl | prepend: site.url }}">&larr; Back to all articles</a>
+  </div>
+
 </article>
 
 {% include comments.html %}

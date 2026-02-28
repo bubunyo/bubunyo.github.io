@@ -3,15 +3,55 @@ layout: default
 title: Home
 ---
 
-{% include intro.html %}
+{% assign featured = site.posts.first %}
 
-<section class="post-list">
-  <div class="container">
-    {% for post in site.posts %}
-      <article class="post-item">
-        <span class="post-meta date-label">{{ post.date | date: "%d %b, %Y" }}</span>
-        <div class="article-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a></div>
-      </article>
-    {% endfor %}
+<div class="container">
+
+  {% if featured %}
+  <article class="post-featured">
+    {% if featured.categories.size > 0 %}
+    <span class="post-category">{{ featured.categories.first | upcase }}</span>
+    {% endif %}
+    <h2 class="post-featured-title">
+      <a href="{{ featured.url | prepend: site.baseurl | prepend: site.url }}">{{ featured.title }}</a>
+    </h2>
+    {% if featured.description %}
+    <p class="post-featured-desc">{{ featured.description }}</p>
+    {% endif %}
+    <p class="post-featured-meta">
+      <span>By {{ site.author.name }}</span>
+      <span class="meta-sep">&middot;</span>
+      <span>{{ featured.date | date: "%B %-d, %Y" }}</span>
+      <span class="meta-sep">&middot;</span>
+      <span>{{ featured.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+    </p>
+  </article>
+  {% endif %}
+
+  <div class="section-header">
+    <p class="section-label">Latest</p>
   </div>
-</section>
+
+  {% for post in site.posts offset:1 %}
+  <article class="post-item">
+    <div class="post-item-main">
+      <h3 class="post-item-title">
+        <a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a>
+      </h3>
+      {% if post.description %}
+      <p class="post-item-desc">{{ post.description }}</p>
+      {% endif %}
+      <p class="post-item-meta">
+        <span>{{ post.date | date: "%B %-d, %Y" }}</span>
+        <span class="meta-sep">&middot;</span>
+        <span>{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+      </p>
+    </div>
+    {% if post.categories.size > 0 %}
+    <div class="post-item-category">{{ post.categories.first | upcase }}</div>
+    {% endif %}
+  </article>
+  <hr class="post-divider" />
+  {% endfor %}
+
+</div>
