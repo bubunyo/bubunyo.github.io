@@ -18,7 +18,7 @@ npm run check-links          # Crawl dist/ for broken internal links (run after 
 
 ## Architecture
 
-**Content flow:** Markdown posts in `src/content/posts/` → validated against the schema in `src/content.config.ts` → rendered through `src/layouts/PostLayout.astro` at the route defined in `src/pages/[slug].astro` → static HTML output in `dist/` (excluded from git).
+**Content flow:** Markdown posts in `content/posts/` (repo root, outside `src`, loaded via the glob loader's `base` in `src/content.config.ts`) → validated against the schema in `src/content.config.ts` → rendered through `src/layouts/PostLayout.astro` at the route defined in `src/pages/[slug].astro` → static HTML output in `dist/` (excluded from git).
 
 **Layouts:**
 - `src/layouts/BaseLayout.astro` — the `<html>` shell: head/meta/SEO, Header/Footer, global styles
@@ -26,10 +26,9 @@ npm run check-links          # Crawl dist/ for broken internal links (run after 
 - `src/layouts/PageLayout.astro` — static pages, e.g. About (wraps `BaseLayout`)
 
 **Routing:**
-- `src/pages/index.astro` — home (featured post + reverse-chronological list)
-- `src/pages/[slug].astro` — one route per post; `getStaticPaths()` derives params from `src/content/posts/`
+- `src/pages/index.astro` — home (reverse-chronological list, date on the left)
+- `src/pages/[slug].astro` — one route per post; `getStaticPaths()` derives params from `content/posts/`
 - `src/pages/tags/[tag].astro` — one route per tag, computed at build time from post front matter (no per-tag files to maintain)
-- `src/pages/about.astro` — About page, content from `src/content/pages/about.md`
 - `src/pages/feed.xml.ts` — RSS feed via `@astrojs/rss`
 
 **Styling:** Sass in `src/styles/`, imported once from `BaseLayout.astro`. Entry point is `main.scss`, which imports partials. Design tokens live in `_variables.scss`.
@@ -40,7 +39,7 @@ npm run check-links          # Crawl dist/ for broken internal links (run after 
 
 ## Writing Posts
 
-Posts go in `src/content/posts/` with the naming convention `YYYY-MM-DD-title.md`. Front matter:
+Posts go in `content/posts/` with the naming convention `YYYY-MM-DD-title.md`. Front matter:
 
 ```yaml
 ---
