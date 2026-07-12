@@ -11,7 +11,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check-links": "linkinator ./dist --recurse --silent --skip \"^https?://(?!localhost)\""
+    "check-links": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
