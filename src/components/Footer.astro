@@ -1,0 +1,27 @@
+---
+import { SITE, SOCIAL_LINKS } from "../consts";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-brand-name"><span class="masthead-accent">5</span>error</p>
+        <p class="footer-brand-desc">{SITE.description}</p>
+      </div>
+      <div class="footer-connect">
+        <p class="footer-col-label">Connect</p>
+        <ul>
+          {SOCIAL_LINKS.map((link) => (
+            <li><a href={link.href} target="_blank" rel="noopener">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>&copy; {year} {SITE.authorName}. All rights reserved.</small>
+    </div>
+  </div>
+</footer>

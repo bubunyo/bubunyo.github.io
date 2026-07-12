@@ -1,7 +1,12 @@
-_site/
-.sass-cache/
-.bundle/
-Gemfile.lock
+# Astro / Node
+dist/
+.astro/
+node_modules/
+npm-debug.log*
+
+# environment variables
+.env
+.env.production
 
 # Windows image file caches
 Thumbs.db

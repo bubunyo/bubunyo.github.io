@@ -1,0 +1,28 @@
+---
+// Ported from the original _includes/post-share.html for parity. Not
+// currently wired into the post page — it wasn't referenced there in the
+// Jekyll site either, so this mirrors that (unused-but-available) status.
+import { SITE } from "../consts";
+
+interface Props {
+  title: string;
+  url: string; // absolute URL of the post
+}
+const { title, url } = Astro.props;
+---
+
+{SITE.postShareEnabled && (
+  <aside class="share">
+    <p>
+      If you liked this article and think others should read it, please share it on{" "}
+      <a
+        href={`http://twitter.com/share?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}&via=${SITE.twitterUsername}`}
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"
+      >Twitter</a> or{" "}
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+        onclick="window.open(this.href, 'facebook-share', 'width=550,height=235');return false;"
+      >Facebook</a>.
+    </p>
+  </aside>
+)}

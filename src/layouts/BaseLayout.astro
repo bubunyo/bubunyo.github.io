@@ -1,0 +1,92 @@
+---
+import "../styles/main.scss";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../consts";
+
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  isArticle?: boolean;
+  publishedTime?: Date;
+  tags?: string[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  keywords = SITE.keywords,
+  isArticle = false,
+  publishedTime,
+  tags = [],
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const rssURL = new URL("/feed.xml", Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+
+    <!-- Social: Facebook / Open Graph -->
+    {isArticle ? (
+      <Fragment>
+        <meta property="og:type" content="article" />
+        <meta property="article:author" content={SITE.authorName} />
+        {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+        {publishedTime && (
+          <meta property="article:published_time" content={publishedTime.toISOString()} />
+        )}
+      </Fragment>
+    ) : (
+      <meta property="og:type" content="website" />
+    )}
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE.authorName} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Social: Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={SITE.twitterUsername} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Schema.org -->
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+
+    <!-- Canonical link tag -->
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.titleLeft}${SITE.titleRight}`} href={rssURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="wrapper">
+      <Header />
+      <slot />
+      <Footer />
+    </main>
+    <script is:inline data-goatcounter="https://5error.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+// Typography
+// Google Fonts are loaded via <link> tags in BaseLayout.astro (better
+// loading performance than a CSS @import) — this file just names them.
+$base-font-family: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+$heading-font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+$sans-font-family: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+$mono-font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+
+// Font Sizes
+$base-font-size: 1em;
+$em-base: 16;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: .52em;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$base-z-index: 0;
+
+// Colors
+$primary-color: #000;
+$action-color: $primary-color;
+$white-color: #fff;
+$black-color: #000;
+$blue-color: #0086B3;
+$red-color: #af2222;
+$dark-gray-color: #333;
+$medium-gray-color: #999;
+$light-gray-color: #ccc;
+
+// Palette (matches the design mockup — a near-black ink, the red accent,
+// and a set of cool grays / hairlines used across the minimal layout).
+$ink-color: #18181b;
+$muted-color: #71717a;
+$muted-2-color: #52525b;
+$faint-color: #a1a1aa;
+$fainter-color: #c4c4c8;
+$hairline-color: #e0ddd5;
+$hairline-light-color: #e7e4dd;
+
+// Font Colors
+$base-font-color: $ink-color;
+
+// Border
+$base-border-color: $light-gray-color;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: $white-color;
+$secondary-background-color: mix($white-color, $base-border-color, 80%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba($black-color, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;

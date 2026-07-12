@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublishedPosts, readingTime, type Post } from "../../lib/posts";
+import { SITE } from "../../consts";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  const tagSet = new Set<string>();
+  posts.forEach((post) => post.data.tags.forEach((tag) => tagSet.add(tag)));
+  return Array.from(tagSet).map((tag) => ({
+    params: { tag },
+    props: { tag, posts: posts.filter((post) => post.data.tags.includes(tag)) },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: Post[];
+}
+const { tag, posts } = Astro.props;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+---
+
+<BaseLayout title={`${tag} | ${SITE.titleLeft}${SITE.titleRight}`}>
+  <div class="container">
+    <div class="tag-header">
+      <p class="tag-eyebrow">Tagged</p>
+      <h1 class="tag-heading"><span class="masthead-accent">#</span>{tag}</h1>
+      <p class="tag-count">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+    </div>
+
+    <div class="post-list">
+      {posts.map((post) => (
+        <div class="post-row">
+          <span class="post-row-date">{formatDate(post.date)}</span>
+          <div class="post-row-body">
+            <a class="post-row-title" href={`/${post.slug}/`}>{post.data.title}</a>
+            <div class="post-row-meta">
+              {post.data.tags.map((t) => (
+                <a class="post-row-tag" href={`/tags/${t}/`}>{t}</a>
+              ))}
+              <span class="post-row-readtime">{readingTime(post.body)} min</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="post-back">
+      <a href="/">&larr; All posts</a>
+    </div>
+  </div>
+</BaseLayout>
