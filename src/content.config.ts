@@ -30,12 +30,4 @@ const posts = defineCollection({
   }),
 });
 
-// Standalone pages (About, etc.) — markdown body + a little front matter.
-const pages = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
-  schema: z.object({
-    title: z.string(),
-  }),
-});
-
-export const collections = { posts, pages };
+export const collections = { posts };

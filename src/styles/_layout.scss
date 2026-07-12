@@ -116,7 +116,7 @@ hr {
 // ─── Post List ────────────────────────────────────────────────────────────────
 
 .post-list {
-  margin-top: 2.125rem;
+  margin-top: 1.75rem;
   display: flex;
   flex-direction: column;
   border-top: 1px solid $hairline-color;
@@ -126,17 +126,18 @@ hr {
   display: flex;
   align-items: baseline;
   gap: 1.25rem;
-  padding: 1rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid $hairline-light-color;
 }
 
 .post-row-date {
   flex-shrink: 0;
-  width: 66px;
-  font-size: rem(13);
+  width: 62px;
+  font-size: rem(12);
   color: $faint-color;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  line-height: 1.5;
 }
 
 .post-row-body {
@@ -148,8 +149,8 @@ hr {
   display: block;
   font-family: $heading-font-family;
   font-weight: 500;
-  font-size: rem(18);
-  line-height: 1.3;
+  font-size: rem(16);
+  line-height: 1.4;
   letter-spacing: -0.01em;
   color: $ink-color;
   text-decoration: none;
@@ -165,43 +166,79 @@ hr {
 .post-row-meta {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 14px;
-  margin-top: 6px;
-  font-size: rem(12);
+  align-items: center;
+  gap: 5px 6px;
+  margin-top: 4px;
+  font-size: rem(11);
 }
 
-.post-row-tag {
+// Small red-tinted chips shared by the list and the article header.
+.post-row-tag,
+.tag-pill {
+  display: inline-block;
+  font-family: $base-font-family;
+  font-weight: 500;
+  font-size: rem(11);
+  line-height: 1.45;
+  letter-spacing: 0.005em;
   color: $red-color;
+  background: rgba($red-color, 0.07);
+  border-radius: 4px;
+  padding: 1px 7px;
   text-decoration: none;
+  transition: background $base-duration $base-timing;
 
   &:hover,
   &:focus,
   &:active {
-    text-decoration: underline;
+    background: rgba($red-color, 0.14);
   }
 }
 
 .post-row-readtime {
   color: $fainter-color;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 // ─── Tag page heading ───────────────────────────────────────────────────────────
 
+.tag-header {
+  padding-top: 0.5rem;
+}
+
+.tag-eyebrow {
+  font-family: $sans-font-family;
+  font-size: rem(11);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $faint-color;
+  margin: 0;
+}
+
 .tag-heading {
   font-family: $heading-font-family;
   font-weight: 700;
-  font-size: rem(32);
+  font-size: rem(34);
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: $ink-color;
-  margin: 0.5rem 0 0;
+  margin: 0.15rem 0 0;
 }
 
-// Post-page tag chips (kept for the article header / footer).
+.tag-count {
+  font-family: $sans-font-family;
+  font-size: rem(13);
+  color: $muted-color;
+  margin: 0.4rem 0 0;
+}
+
+// Post-page tag chips (kept for the article header).
 .post-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  gap: 6px;
   margin-bottom: 1.25rem;
 }
 
