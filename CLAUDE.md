@@ -4,47 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal blog at www.5error.com ("5 Error") built with Jekyll 3.x, hosted on GitHub Pages. No JavaScript framework — pure Ruby/Jekyll stack.
+Personal blog at www.5error.com ("5 Error") built with Astro, hosted on GitHub Pages via GitHub Actions. Static site, no client-side framework — content is authored as Markdown.
 
 ## Common Commands
 
 ```bash
-bundle install                              # Install Ruby dependencies
-bundle exec jekyll serve                   # Dev server at http://localhost:4000
-bundle exec jekyll serve --drafts          # Include draft posts
-bundle exec jekyll build                   # Build to _site/
-bundle exec htmlproofer ../_site --disable-external  # Validate HTML
-script/cibuild.sh                          # Full CI build (build + validate)
+npm install                # Install dependencies
+npm run dev                 # Dev server at http://localhost:4321
+npm run build                # Build to dist/
+npm run preview              # Preview the production build
+npm run check-links          # Crawl dist/ for broken internal links (run after build)
 ```
 
 ## Architecture
 
-**Content flow:** Markdown posts in `_posts/` → Jekyll processes with layouts from `_layouts/` → static HTML output in `_site/` (excluded from git).
+**Content flow:** Markdown posts in `src/content/posts/` → validated against the schema in `src/content.config.ts` → rendered through `src/layouts/PostLayout.astro` at the route defined in `src/pages/[slug].astro` → static HTML output in `dist/` (excluded from git).
 
 **Layouts:**
-- `default.html` — base layout with header/footer
-- `post.html` — individual blog post pages
-- `page.html` — static pages (e.g., About)
+- `src/layouts/BaseLayout.astro` — the `<html>` shell: head/meta/SEO, Header/Footer, global styles
+- `src/layouts/PostLayout.astro` — individual blog post pages (wraps `BaseLayout`)
+- `src/layouts/PageLayout.astro` — static pages, e.g. About (wraps `BaseLayout`)
 
-**Styling:** SCSS in `assets/scss/` compiled by Jekyll. Entry point is `main.scss`, which imports partials. Design tokens live in `_variables.scss`. Bourbon (v7.3.0) provides SCSS mixins.
+**Routing:**
+- `src/pages/index.astro` — home (featured post + reverse-chronological list)
+- `src/pages/[slug].astro` — one route per post; `getStaticPaths()` derives params from `src/content/posts/`
+- `src/pages/tags/[tag].astro` — one route per tag, computed at build time from post front matter (no per-tag files to maintain)
+- `src/pages/about.astro` — About page, content from `src/content/pages/about.md`
+- `src/pages/feed.xml.ts` — RSS feed via `@astrojs/rss`
 
-**Theme:** thinkspace v2.5.0 (minimalist Jekyll theme, defined in `thinkspace.gemspec`).
+**Styling:** Sass in `src/styles/`, imported once from `BaseLayout.astro`. Entry point is `main.scss`, which imports partials. Design tokens live in `_variables.scss`.
+
+**Post slugs/dates:** Posts keep the Jekyll-era `YYYY-MM-DD-title.md` filename convention. `src/content.config.ts` uses a custom `generateId` that preserves the filename exactly (no lowercasing) so existing URLs — and the giscus comment threads mapped to them by pathname — don't change. `src/lib/posts.ts` parses the date/slug back out of that id.
+
+**Code blocks:** Syntax highlighting is Shiki's built-in `one-dark-pro` theme (configured in `astro.config.mjs`), chosen to match the site's original Rouge-based "Atom One Dark" palette.
 
 ## Writing Posts
 
-Posts go in `_posts/` with the naming convention `YYYY-MM-DD-title.md`. Required front matter:
+Posts go in `src/content/posts/` with the naming convention `YYYY-MM-DD-title.md`. Front matter:
 
 ```yaml
 ---
-layout: post
 title: "Post Title"
 description: "Short description"
 comments: true
 keywords: "comma, separated, keywords"
 published: true
+tags: [software, business, community]
 ---
 ```
 
+Set `published: false` to exclude a post from the build (drafts stay in the repo).
+
 ## Git Workflow
 
-Feature branches for posts and major changes, merged to master via PRs. GitHub Pages deploys from master automatically. Travis CI (`.travis.yml`) runs `script/cibuild.sh` on master and gh-pages branches.
+Feature branches for posts and major changes, merged to master via PRs. `.github/workflows/ci.yml` builds and link-checks every push/PR. `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on push to `master` (requires the repo's Pages source set to "GitHub Actions").

@@ -1,0 +1,23 @@
+---
+const buildDate = new Date();
+const dateline = buildDate.toLocaleDateString("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<header class="site-header">
+  <div class="container">
+    <div class="site-dateline">
+      <span>{dateline}</span>
+      <span>Independent Writing</span>
+    </div>
+    <div class="site-masthead">
+      <a class="masthead-title" href="/"><span class="masthead-accent">5</span>error</a>
+      <p class="masthead-tagline">Software, stories, and the world they're built in.</p>
+    </div>
+  </div>
+  <div class="nav-rule"></div>
+</header>

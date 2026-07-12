@@ -1,0 +1,10 @@
+// A minimal standalone replacement for Bourbon's `rem()` helper (the only
+// Bourbon function this stylesheet actually relied on beyond a one-off
+// `shade()`/`tint()` call) — Bourbon itself has been dropped as dead weight.
+// Usage: rem(16) => 1rem, assuming a 16px root font-size ($em-base).
+@function rem($pxval) {
+  @if unit($pxval) == 'px' {
+    $pxval: $pxval / 1px;
+  }
+  @return ($pxval / $em-base) * 1rem;
+}

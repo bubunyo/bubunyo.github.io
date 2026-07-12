@@ -1,0 +1,39 @@
+// ─── Inline code ─────────────────────────────────────────────────────────────
+
+code {
+  font-family: $mono-font-family;
+  font-size: 0.85em;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #111111;
+  border: none;
+  border-radius: 3px;
+  padding: 0.15em 0.45em;
+}
+
+// ─── Code blocks ─────────────────────────────────────────────────────────────
+// Token colors come from Shiki's built-in "one-dark-pro" theme (configured in
+// astro.config.mjs), which sets its own background/foreground/span colors
+// inline on `pre.astro-code` — this only supplies the surrounding chrome
+// (padding, margins, radius) that Shiki doesn't add on its own.
+
+pre.astro-code {
+  font-family: $mono-font-family;
+  font-size: rem(14);
+  line-height: 1.65;
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+  -webkit-overflow-scrolling: touch;
+
+  code {
+    font-family: $mono-font-family;
+    font-size: inherit;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    line-height: inherit;
+  }
+}
