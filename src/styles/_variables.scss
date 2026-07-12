@@ -1,9 +1,9 @@
 // Typography
 // Google Fonts are loaded via <link> tags in BaseLayout.astro (better
 // loading performance than a CSS @import) — this file just names them.
-$base-font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-$heading-font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-$sans-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+$base-font-family: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+$heading-font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+$sans-font-family: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 $mono-font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
 
 // Font Sizes
@@ -31,8 +31,18 @@ $dark-gray-color: #333;
 $medium-gray-color: #999;
 $light-gray-color: #ccc;
 
+// Palette (matches the design mockup — a near-black ink, the red accent,
+// and a set of cool grays / hairlines used across the minimal layout).
+$ink-color: #18181b;
+$muted-color: #71717a;
+$muted-2-color: #52525b;
+$faint-color: #a1a1aa;
+$fainter-color: #c4c4c8;
+$hairline-color: #ececee;
+$hairline-light-color: #f4f4f5;
+
 // Font Colors
-$base-font-color: rgba($dark-gray-color, .8);
+$base-font-color: $ink-color;
 
 // Border
 $base-border-color: $light-gray-color;

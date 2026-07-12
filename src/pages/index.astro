@@ -4,60 +4,31 @@ import { getPublishedPosts, readingTime } from "../lib/posts";
 import { SITE } from "../consts";
 
 const posts = await getPublishedPosts();
-const [featured, ...rest] = posts;
 
 const pageTitle = `${SITE.titleLeft}${SITE.titleRight} | ${SITE.description}`;
 
 function formatDate(date: Date) {
-  return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 ---
 
 <BaseLayout title={pageTitle}>
   <div class="container">
-    {featured && (
-      <article class="post-featured">
-        <h2 class="post-featured-title">
-          <a href={`/${featured.slug}/`}>{featured.data.title}</a>
-        </h2>
-        {featured.data.description && <p class="post-featured-desc">{featured.data.description}</p>}
-        <p class="post-featured-meta">
-          <span>By {SITE.authorName}</span>
-          <span class="meta-sep">&middot;</span>
-          <span>{formatDate(featured.date)}</span>
-          <span class="meta-sep">&middot;</span>
-          <span>{readingTime(featured.body)} min read</span>
-        </p>
-        {featured.data.tags.length > 0 && (
-          <p class="post-item-tags">
-            {featured.data.tags.map((tag) => <a class="tag-pill" href={`/tags/${tag}/`}>{tag}</a>)}
-          </p>
-        )}
-      </article>
-    )}
-
-    {rest.map((post) => (
-      <>
-        <article class="post-item">
-          <div class="post-item-main">
-            <h3 class="post-item-title">
-              <a href={`/${post.slug}/`}>{post.data.title}</a>
-            </h3>
-            {post.data.description && <p class="post-item-desc">{post.data.description}</p>}
-            <p class="post-item-meta">
-              <span>{formatDate(post.date)}</span>
-              <span class="meta-sep">&middot;</span>
-              <span>{readingTime(post.body)} min read</span>
-            </p>
-            {post.data.tags.length > 0 && (
-              <p class="post-item-tags">
-                {post.data.tags.map((tag) => <a class="tag-pill" href={`/tags/${tag}/`}>{tag}</a>)}
-              </p>
-            )}
+    <div class="post-list">
+      {posts.map((post) => (
+        <div class="post-row">
+          <span class="post-row-date">{formatDate(post.date)}</span>
+          <div class="post-row-body">
+            <a class="post-row-title" href={`/${post.slug}/`}>{post.data.title}</a>
+            <div class="post-row-meta">
+              {post.data.tags.map((tag) => (
+                <a class="post-row-tag" href={`/tags/${tag}/`}>{tag}</a>
+              ))}
+              <span class="post-row-readtime">{readingTime(post.body)} min</span>
+            </div>
           </div>
-        </article>
-        <hr class="post-divider" />
-      </>
-    ))}
+        </div>
+      ))}
+    </div>
   </div>
 </BaseLayout>
