@@ -143,10 +143,14 @@ hr {
 .post-row-body {
   flex: 1;
   min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
 }
 
 .post-row-title {
-  display: block;
+  flex: 1;
+  min-width: 0;
   font-family: $heading-font-family;
   font-weight: 500;
   font-size: rem(16);
@@ -164,11 +168,11 @@ hr {
 }
 
 .post-row-meta {
+  flex-shrink: 0;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px 6px;
-  margin-top: 4px;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 6px;
   font-size: rem(11);
 }
 
@@ -554,7 +558,20 @@ hr {
   }
 
   .post-row-date {
-    width: 58px;
+    width: 56px;
+  }
+
+  .post-row-body {
+    flex-wrap: wrap;
+  }
+
+  .post-row-title {
+    flex-basis: 100%;
+  }
+
+  .post-row-meta {
+    flex-wrap: wrap;
+    margin-top: 4px;
   }
 
   .footer-grid {
