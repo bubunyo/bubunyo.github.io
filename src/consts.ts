@@ -21,7 +21,7 @@ export const GISCUS = {
 } as const;
 
 export const SOCIAL_LINKS = [
-  { label: "x.com/KiddBubu", href: "https://x.com/KiddBubu" },
-  { label: "github.com/bubunyo", href: "https://github.com/bubunyo" },
-  { label: "linkedin.com/in/bubunyonyavor", href: "https://www.linkedin.com/in/bubunyonyavor/" },
+  { label: "gthb/bubunyo", href: "https://github.com/bubunyo" },
+  { label: "lnkdin/bubunyonyavor", href: "https://www.linkedin.com/in/bubunyonyavor/" },
+  { label: "x/KiddBubu", href: "https://x.com/KiddBubu" },
 ] as const;
