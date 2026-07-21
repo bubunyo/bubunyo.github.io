@@ -2,7 +2,8 @@
 title: "Building a Multi-Tenant Dev Environment"
 description: "How to run a hundred-plus-service system twice on one machine, without any service noticing."
 comments: true
-keywords: ["engineering", "platforms", "ai"]
+keywords: "platform-engineering, kubernetes, kafka, postgres, dev-environments"
+tags: [ai, platform, engineering]
 published: true
 ---
 Every engineering org that grows eventually hits the same bottleneck: testing changes in a shared dev environment becomes unreliable very quickly. Everyone deploying to the same environment means everyone stepping on each other's data. When the frequency of deployments ticks up, the problem gets worse. With AI, people are able to create features faster, and it will continue to get worse. After each feature, you typically want to test a flow end to end, but someone else's test just mutated the state you depended on while you were testing. Such an environment earns a reputation for being unstable, and nobody trusts it.
