@@ -5,8 +5,6 @@ comments: true
 keywords: "file systems, durability, fsync, ext4, xfs, zfs, btrfs, kafka, aerospike, postgres, tech"
 published: false
 ---
-# The layer you never think about
-
 A few years ago I got on the MongoDB bandwagon. The pitch was scale: MongoDB was web scale, and I wanted my application ready for the internet, even if the first customers were going to be mates from the back streets of East Legon. I wrote the application and I wrote tests for it, and the tests failed in a way I could not explain. I called `InsertOne`, then called `FindOne` with the same id in the assertion, and nothing came back. The data I had just written was not there.
 
 This was before AI assistants, so I spent a few days reading logs, driver documentation and forum threads. Then I gave up, moved the project to Postgres, and swore off MongoDB.
