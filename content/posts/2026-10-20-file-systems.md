@@ -37,7 +37,7 @@ When one owner changes their copy, the clerk leaves the shared slots alone, puts
 
 Doing things in this order also protects you from power cuts. A clerk who edits a box where it sits can be stopped halfway, which leaves a box that is half old and half new. A copy-on-write clerk never edits a slot that is in use. Until the card changes it points at the old piece, and after the change it points at the new one, so a power cut at any moment leaves you with one whole version or the other. ZFS, Btrfs and Apple's APFS all work this way.
 
-Snapshots use the same trick on the whole storeroom. Taking a snapshot makes the clerk a second owner of every box at once, which costs little more than copying the cards. After that, every change needs a new slot, because the old one is kept for the snapshot, and the clerk can only free a slot once no card points at it. A box that changes often also ends up with its pieces spread all over the storeroom. That causes trouble for databases, and the performance section comes back to it.
+Snapshots use the same trick on the whole storeroom. Taking a snapshot makes the clerk a second owner of every box at once, which costs little more than copying the cards. After that, every change needs a new slot, because the old one is kept for the snapshot, and the clerk can only free a slot once no card points at it. A box that changes often also ends up with its pieces spread all over the storeroom. That causes trouble for databases, and we will come back to this in the performance section.
 
 ## Some quirks that come from this design
 
