@@ -89,7 +89,7 @@ If you set ZFS up with redundancy, it can find and fix corruption that the disk 
 
 Btrfs brings copy-on-write, snapshots and checksums into the Linux kernel itself. Its RAID 5 and RAID 6 modes have had serious bugs for years and are [still not recommended](https://btrfs.readthedocs.io/en/stable/Status.html) for data you care about, but the rest of the file system is widely used in production. SUSE has used Btrfs for its system partition [since 2014](https://www.computerworld.com/article/2838950/suse-enterprise-linux-can-take-your-system-back-in-time.html), partly so that a broken system update can roll back to a snapshot. Fedora Workstation [switched to it in 2020](https://fedoraproject.org/wiki/Changes/BtrfsByDefault).
 
-In the cloud you often do not choose at all. Managed Kubernetes usually formats volumes as ext4 unless the storage class says otherwise ([GKE's default storage class](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes) is one example), and most teams never touch that. That is fine for most workloads. It just means the person who wrote the storage class picked your file system, not the team running the database.
+In the cloud you often do not choose at all. Managed Kubernetes usually formats volumes as ext4 unless the storage class says otherwise ([GKE's default storage class](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes) is one example), and most teams never touch that. That is fine for most workloads. It just means the choice of a file system is decided by which storage class you use and who wrote it.
 
 ## Why the choice affects performance
 
