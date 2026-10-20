@@ -15,11 +15,11 @@ I had assumed that "the function returned" meant "the data is stored". The once-
 
 The bottom layer, the one closest to the disk, is the file system. Learning what it does and why it behaves the way it does changed how I read the durability guarantees of any system that stores data on disk. This article covers that layer: what it does, where its odd behaviour comes from, how it evolved on the desktop, and why the choice of file system on a server is a performance decision.
 
-## What a file system does
+## What is a file system
 
 Imagine you run a storeroom. People bring you boxes, and you keep them until they come back for them. The storeroom is full of identical shelf slots. Each slot has a number, slot 0, slot 1, and so on up to a few billion, but no label. A disk is a storeroom like this. You can tell it to put some data in slot N, or to give back what is in slot N, and that is all it knows how to do. It has no idea what a file is.
 
-To run the place properly you need to keep some records. You need a ledger of names, so someone can ask for "the March invoices" without knowing which slots they are in. You need a card for each box that says who owns it, how big it is, when it came in and which slots its pieces are in, because a big delivery rarely fits in slots that sit next to each other. You need a list of empty slots, so you never put two boxes in one place. You also need some way to keep all of these records straight if the lights go out while you are halfway through putting a delivery away.
+To run the place properly you need to keep some records. You need a ledger of names, so someone can ask for "my cats picture" without knowing which slots they are in. You need a card for each box that says who owns it, how big it is, when it came in and which slots its pieces are in, because a big delivery rarely fits in slots that sit next to each other. You need a list of empty slots, so you never put two boxes in one place. You also need some way to keep all of these records straight if the lights go out while you are halfway through putting a delivery away.
 
 A file system is that set of records. On Unix, a directory is the ledger of names, and each name points to an inode, which is the card for the box. The inode holds the owner, the size, the timestamps and the places on disk where the data lives. Newer file systems record ranges of blocks, called extents, instead of listing every block one by one, and a bitmap or a tree keeps track of the empty space. The file's name lives in the directory, not in the file. That is why one file can have two names (a hard link), and why renaming a file costs almost nothing.
 
