@@ -1,5 +1,5 @@
 ---
-title: 'File System: When done does not mean stored'
+title: 'File Systems: The business of implementing durability'
 description: "What a file system does, how it got here, and what it promises when a write returns."
 comments: true
 keywords: "file systems, durability, fsync, ext4, xfs, zfs, btrfs, kafka, aerospike, postgres, tech"
