@@ -1,8 +1,9 @@
 ---
-title: 'File Systems: The business of implementing durability'
+title: 'File Systems: The business of durability'
 description: "What a file system does, how it got here, and what it promises when a write returns."
 comments: true
 keywords: "file systems, durability, fsync, ext4, xfs, zfs, btrfs, kafka, aerospike, postgres, tech"
+tags: [linux, mongodb, kafka, postgres]
 published: true
 ---
 A few years ago I got on the MongoDB bandwagon. The pitch was scale: MongoDB was web scale, and I wanted my application ready for the internet, even if the first customers were going to be mates from the back streets of East Legon. I wrote the application and I wrote tests for it, and the tests failed in a way I could not explain. I called `InsertOne`, then called `FindOne` with the same id in the assertion, and nothing came back. The data I had just written was not there.
