@@ -9,13 +9,13 @@ published: true
 
 [monolith](https://github.com/bubunyo/monolith) started as a way to run Linux
 VMs on my Mac. It sits on top of Apple's
-Virtualization.framework, and over time it grew three ways of using those VMs:
+[Virtualization.framework](https://developer.apple.com/documentation/virtualization), and over time it grew three ways:
 
 - `monolith vm` for a Linux machine to work in;
 - `monolith docker` for a Colima-style Docker host, so the `docker` CLI on the
   Mac has somewhere to send its containers;
 - `monolith sandbox` for running a repo I don't trust, where only the repo is
-  visible and the code can reach the internet but not my Mac or my network.
+  visible and the code can reach the internet but not my Mac or my network (Still WIP). 
 
 All of them work the same way underneath: one long-lived VM, and whatever you
 run lives inside it. For Docker that means every container shares the VM's
@@ -40,15 +40,14 @@ So I started thinking: if starting a VM on Apple Silicon is already cheap, why
 keep one big VM around at all? What if every container got its own small VM,
 with its own kernel, that exists only as long as the container does?
 
-That question turned into `monolith container`: a container engine where
+My answer to that question became `monolith container`: a container engine where
 `monolith container run nginx` pulls an OCI image, turns it into a disk, and
 boots a VM whose only job is to run nginx. Making it work the way I wanted
-turned out to be less trivial than I expected. The part I learned the most
-from was the very first process in that VM: the program the kernel starts,
-PID 1. I ended up writing it myself.
-
-This post is about why I went that way instead of reusing something that
-already exists, and how the pieces fit together.
+turned out to be less trivial than I expected. It turns out for it to work exactly as I expected, 
+I had to write and initial RAM disk implementation by myself. Initial RAM Disk often shortened to 
+`initrd`, often invoked at `/init` on the linus file system is what typicaly ends up becomein PID 1.
+The essay is about how i went about implementing this piece for containers to 
+work in monolith the way i wanted and how the pieces fit together.
 
 ## Why not just use something that exists?
 
@@ -61,17 +60,17 @@ into containerd and Docker as a runtime: when you start a container, Kata boots
 a small VM and runs the container inside it, with an agent in the guest taking
 orders from the host.
 
-monolith already knew about Kata. `monolith vm --image kata` boots Kata's guest
+monolith already knows about Kata. `monolith vm --image kata` boots Kata's guest
 kernel and rootfs, mostly because they boot fast. But that rootfs isn't a
 machine you work in. It's a minimal, read-only image built to host the Kata
-agent, which made me question what the point of it was outside Kata.
+agent, which made me question what the point of it was outside Kata. 
 
 The obvious next idea was to make Kata the runtime of `monolith docker`. That's
 where it falls apart on a Mac. Kata's runtime expects a Linux host with KVM and
 drives hypervisors like QEMU, Cloud Hypervisor or Firecracker. macOS has none
 of those; it has Virtualization.framework. So Kata would have to run inside a VM running
 Docker, and every container would become a VM nested inside that VM.
-So you end up with two layers of virtualization just to run one container.
+So you end up with two nested layers of virtualization just to run one container.
 The isolation would be real, but nothing else about it would be cheap. Not good enough.
 
 In 2025 Apple released [`container`](https://github.com/apple/container) and it looked
@@ -107,8 +106,8 @@ when a Linux machine starts. On a typical PC or server:
 
 1. The **firmware** (UEFI) starts and runs a **bootloader**, usually GRUB.
 2. GRUB loads two files into memory: the **kernel**, and an [**initrd** (initial
-   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line, a string of
-   options like `root=/dev/sda2 quiet`.
+   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line and a string of
+   options like `console=hvc0 quiet loglevel=1 ip=dhcp rdinit=/init panic=-1`.
 3. The kernel sets up memory, CPUs and its built-in drivers. Then it unpacks
    the initrd into a filesystem in RAM and runs the program at `/init` in
    it. That program is process 1, with **PID 1**.
