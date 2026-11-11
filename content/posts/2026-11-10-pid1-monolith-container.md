@@ -15,7 +15,7 @@ VMs on my Mac. It sits on top of Apple's
 - `monolith docker` for a Colima-style Docker host, so the `docker` CLI on the
   Mac has somewhere to send its containers;
 - `monolith sandbox` for running a repo I don't trust, where only the repo is
-  visible and the code can reach the internet but not my Mac or my network (Still WIP). 
+  visible and the code can reach the internet but not my Mac or my network (still WIP).
 
 All of them work the same way underneath: one long-lived VM, and whatever you
 run lives inside it. For Docker that means every container shares the VM's
@@ -43,11 +43,11 @@ with its own kernel, that exists only as long as the container does?
 My answer to that question became `monolith container`: a container engine where
 `monolith container run nginx` pulls an OCI image, turns it into a disk, and
 boots a VM whose only job is to run nginx. Making it work the way I wanted
-turned out to be less trivial than I expected. It turns out for it to work exactly as I expected, 
-I had to write and initial RAM disk implementation by myself. Initial RAM Disk often shortened to 
-`initrd`, often invoked at `/init` on the linus file system is what typicaly ends up becomein PID 1.
-The essay is about how i went about implementing this piece for containers to 
-work in monolith the way i wanted and how the pieces fit together.
+turned out to be less trivial than I expected. It turns out that for it to
+work exactly as I wanted, I had to write the program the kernel runs first,
+from the initial RAM disk (initrd): `/init`, which becomes PID 1. This essay is
+about how I built that piece for monolith's containers, and how the pieces fit
+together.
 
 ## Why not just use something that exists?
 
@@ -63,7 +63,7 @@ orders from the host.
 monolith already knows about Kata. `monolith vm --image kata` boots Kata's guest
 kernel and rootfs, mostly because they boot fast. But that rootfs isn't a
 machine you work in. It's a minimal, read-only image built to host the Kata
-agent, which made me question what the point of it was outside Kata. 
+agent, which made me question what the point of it was outside Kata.
 
 The obvious next idea was to make Kata the runtime of `monolith docker`. That's
 where it falls apart on a Mac. Kata's runtime expects a Linux host with KVM and
@@ -106,8 +106,8 @@ when a Linux machine starts. On a typical PC or server:
 
 1. The **firmware** (UEFI) starts and runs a **bootloader**, usually GRUB.
 2. GRUB loads two files into memory: the **kernel**, and an [**initrd** (initial
-   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line and a string of
-   options like `console=hvc0 quiet loglevel=1 ip=dhcp rdinit=/init panic=-1`.
+   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line, a string of
+   options like `root=/dev/sda2 quiet`.
 3. The kernel sets up memory, CPUs and its built-in drivers. Then it unpacks
    the initrd into a filesystem in RAM and runs the program at `/init` in
    it. That program is process 1, with **PID 1**.
@@ -148,7 +148,8 @@ A VM on Virtualization.framework skips the firmware and GRUB entirely: for
 container VMs, monolith hands the kernel, the initrd and the command
 line straight to
 [`VZLinuxBootLoader`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/vmd.go#L122-L127),
-and the kernel starts directly.
+and the kernel starts directly. The command line a container VM boots with is
+[`console=hvc0 quiet loglevel=1 ip=dhcp rdinit=/init panic=-1`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/container.go#L44-L47).
 
 ### Where monolith comes in
 
@@ -172,7 +173,7 @@ From there, `monolith-init` works through the same five steps:
    when it pulled the image, at `/newroot`, then mounts `/proc`, `/sys`, `/dev` and friends inside it.
 4. **Switching** is only half done. It
    [moves into the disk](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L139-L147)
-   the same way `switch_root` does, but it `exec`s nothing:
+   the same way `switch_root` does, but it `exec`s nothing.
 
 This is where it breaks from the usual sequence. A normal initrd would now
 `exec` the real init and disappear. `monolith-init` doesn't hand over to
@@ -290,7 +291,7 @@ would never hear `monolith container stop`'s `SIGTERM` unless it set up a
 handler of its own. A handler doesn't have that problem: after `exec`, the
 child starts with normal behaviour. So
 [the first thing `monolith-init` does](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L36-L38)
-is install dead end handlers. 
+is install handlers that do nothing.
 
 Getting signals *to* the container's process is then simple. When you run
 `monolith container stop`, the daemon asks the init over vsock to
@@ -373,5 +374,5 @@ Then the VM goes away.
 ## Conclusion
 So there. Everything it takes in PID 1 to run a container. Other init systems do more, because people
 expect more of them. But for monolith containers, it has one job; here is an image, run it. It means
-we get to skip a lot of the details that make most Linux systems work the way they should. For containers, 
+we get to skip a lot of the details that make most Linux systems work the way they should. For containers,
 it turns out, this is quite enough.
