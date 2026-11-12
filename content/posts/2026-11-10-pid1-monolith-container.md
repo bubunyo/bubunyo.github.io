@@ -18,7 +18,7 @@ VMs on my Mac. It sits on top of Apple's
   visible and the code can reach the internet but not my Mac or my network (still WIP).
 
 All of them work the same way underneath: one long-lived VM, and whatever you
-run lives inside it. For Docker that means every container shares the VM's
+run lives inside it. For Docker that means every container shares the same VM
 kernel. That's how Docker works everywhere, and for the Docker ecosystem
 (Compose, buildx, Kubernetes) it's what you want.
 
@@ -33,7 +33,7 @@ Then there's setting things aside. `docker pause` freezes a container, but its
 memory stays allocated. The only way to really get the resources back is to
 stop it, or to suspend the whole Docker VM along with everything else in it. I
 wanted something simpler: run an image, put it away and free what it was
-using, run something else, and come back to the first one later without losing
+using, run something else, and come back to the first one later without missing
 a beat.
 
 So I started thinking: if starting a VM on Apple Silicon is already cheap, why
@@ -44,19 +44,19 @@ My answer to that question became `monolith container`: a container engine where
 `monolith container run nginx` pulls an OCI image, turns it into a disk, and
 boots a VM whose only job is to run nginx. Making it work the way I wanted
 turned out to be less trivial than I expected. It turns out that for it to
-work exactly as I wanted, I had to write the program the kernel runs first,
-from the initial RAM disk (initrd): `/init`, which becomes PID 1. This essay is
-about how I built that piece for monolith's containers, and how the pieces fit
+work as I wanted, I had to write the first program a kernel runs,
+the initial RAM disk (initrd) at `/init`, which becomes PID 1. This essay is
+an account of how I built that piece for monolith's container engine and how it all fit
 together.
 
 ## Why not just use something that exists?
 
-"A VM per container" isn't a new idea. Two projects already do it, and I
+"A VM per container" isn't a new idea. Two projects I know off, already do it, and I
 looked hard at both and took inspiration from them.
 
 [Kata Containers](https://github.com/kata-containers/kata-containers) is the
 best-known answer to "what if each container had its own kernel?". It plugs
-into containerd and Docker as a runtime: when you start a container, Kata boots
+into [containerd](https://containerd.io) and Docker as a runtime: when you start a container, Kata boots
 a small VM and runs the container inside it, with an agent in the guest taking
 orders from the host.
 
@@ -67,46 +67,40 @@ agent, which made me question what the point of it was outside Kata.
 
 The obvious next idea was to make Kata the runtime of `monolith docker`. That's
 where it falls apart on a Mac. Kata's runtime expects a Linux host with KVM and
-drives hypervisors like QEMU, Cloud Hypervisor or Firecracker. macOS has none
-of those; it has Virtualization.framework. So Kata would have to run inside a VM running
+drives hypervisors like (QEMU)[https://www.qemu.org], (Cloud Hypervisor)[https://github.com/cloud-hypervisor/cloud-hypervisor] 
+or (Firecracker)[https://firecracker-microvm.github.io/]. macOS does not have KVM;
+it has Virtualization.framework. So Kata would have to run inside a VM running
 Docker, and every container would become a VM nested inside that VM.
 So you end up with two nested layers of virtualization just to run one container.
 The isolation would be real, but nothing else about it would be cheap. Not good enough.
 
 In 2025 Apple released [`container`](https://github.com/apple/container) and it looked
-like most of what I wanted:
+like most of what I wanted: every container gets its own lightweight VM on thr Virtualization.framework, 
+with no shared Linux VM in the middle. The image's filesystem becomes an ext4 block device for that VM and 
+inside the guest, PID 1 is Apple's own small init, `vminitd`, which the host
+talks to over [vsock](https://man7.org/linux/man-pages/man7/vsock.7.html).
 
-- every container gets its own lightweight VM on Virtualization.framework, with
-  no shared Linux VM in the middle;
-- the image's filesystem becomes an ext4 block device for that VM;
-- inside the guest, PID 1 is Apple's own small init, `vminitd`, which the host
-  talks to over [vsock](https://man7.org/linux/man-pages/man7/vsock.7.html).
-
-I tried it, and I liked the experience a lot. `container run` feels like
+That experience felt closer to what I envisioned; `container run` feels like
 `docker run`, but there's no big VM to start first and nothing to keep
 running in the background. Each container just shows up in its own VM and goes
-away when it's done. It proved the model works on a Mac, and that it can feel
-fast.
-
-That experience is what I wanted, so I set out to recreate it inside monolith.
-That way a container would be just another monolith VM, sitting next to the
+away when it's done. That way a container would be just another monolith VM, sitting next to the
 ones from `monolith vm`, `docker` and `sandbox`, and it would get what those
 already have: a daemon per VM, named networks, a shared cache, `pause` and
 `resume`, and one `vm list` showing everything that's running along with what runs on them.
 
-To build it myself, I had to learn what it takes to boot a VM and turn it
-into a container: everything between the kernel starting and nginx answering a
+To build it myself, I had to relearn what it takes to boot a kernal and turn it
+into a container: everything between power-on and nginx answering a
 request. I had a working knowledge of the Linux boot process, but this project
 crystallized it in a way I didn't expect. Happy accident.
 
-## How the Linux boot process works and where monolith comes in
+### How the Linux boot process works
 
 Before getting into the design, it helps to walk through what normally happens
-when a Linux machine starts. On a typical PC or server:
+when a Linux machine starts. On a typical PC or server, on power-on:
 
 1. The **firmware** (UEFI) starts and runs a **bootloader**, usually GRUB.
 2. GRUB loads two files into memory: the **kernel**, and an [**initrd** (initial
-   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line, a string of
+   RAM disk)](https://docs.kernel.org/admin-guide/initrd.html). Then it starts the kernel with a command line and a string of
    options like `root=/dev/sda2 quiet`.
 3. The kernel sets up memory, CPUs and its built-in drivers. Then it unpacks
    the initrd into a filesystem in RAM and runs the program at `/init` in
@@ -121,7 +115,7 @@ when a Linux machine starts. On a typical PC or server:
 
 The initrd itself is less magic than it sounds. It's a [cpio archive](https://docs.kernel.org/filesystems/ramfs-rootfs-initramfs.html) (the
 `newc` format, an old Unix archive format a bit like tar) that the kernel
-unpacks into RAM. A tiny, temporary filesystem whose only purpose is getting
+unpacks into RAM. It is a tiny, temporary filesystem whose only purpose is getting
 from "the kernel is running" to "the real root disk is mounted".
 
 ### What the initrd's `/init` has to do
@@ -145,26 +139,22 @@ down to:
    avoids that by `exec`ing, so it never returns.
 
 A VM on Virtualization.framework skips the firmware and GRUB entirely: for
-container VMs, monolith hands the kernel, the initrd and the command
-line straight to
+container VMs, monolith hands the kernel, the initrd and the [command line arguments](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/container.go#L44-L47), straight to
 [`VZLinuxBootLoader`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/vmd.go#L122-L127),
-and the kernel starts directly. The command line a container VM boots with is
-[`console=hvc0 quiet loglevel=1 ip=dhcp rdinit=/init panic=-1`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/container.go#L44-L47).
+and the kernel starts directly.
 
 ### Where monolith comes in
 
 monolith builds the initrd itself, in a
-[few lines](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/guestinit/guestinit.go#L33-L72),
+[few-ish lines](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/guestinit/guestinit.go#L33-L72),
 the first time a container starts. It holds three empty directories and one
-file, `/init`, which is `monolith-init`.
-
-From there, `monolith-init` works through the same five steps:
+file, `/init`, which is the `monolith-init` binary. From there, `monolith-init` works through the same five steps:
 
 1. **Pseudo-filesystems:** it
    [mounts `/dev` and `/proc`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L83-L90)
    in the initrd first, so it can see the disk and read what the kernel
    learned by DHCP.
-2. **Making the disk appear** is free. The disk is always `/dev/vda`, and its
+2. **Making the disk appear**: This is free. The disk is always `/dev/vda`, and its
    driver is built into the kernel, so there's nothing to load or wait for.
 3. **Mounting the container image file system as root:** it
    [mounts the image's filesystem](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L96),
@@ -186,18 +176,6 @@ When the container's process ends, it doesn't return. It reports the exit code
 to the Mac and [powers the VM off](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L67-L73)
 itself.
 
-```
-A typical distro                       A monolith container
-
-firmware (UEFI)                        VZLinuxBootLoader
-GRUB                                     │
-kernel                                 kernel
-initrd /init  ── finds the root disk   monolith-init (from the initrd)
-switch_root                              ├─ mounts the image disk, moves into it
-systemd (PID 1)                          └─ stays PID 1
-services, login                              └─ nginx
-```
-
 This is also why the kernel matters. The initrd has no kernel modules in it,
 so everything this boot needs has to be built into the kernel: virtio for the
 disk and console, ext4, vsock to talk to the Mac, cgroup v2, and the in-kernel
@@ -211,34 +189,25 @@ interesting work turned out to be.
 
 ## What else PID 1 has to do
 
-By the end of the boot, `monolith-init` is PID 1 inside the image's
-filesystem, ready to start the container's process. To make containers work
-the way I wanted, it had to do a few other things too. The first is taking
-orders from the Mac.
+By the end of the boot process, `monolith-init` is PID 1 inside the image's
+filesystem, ready to start the container's process. To make it work properly,
+it had to do a few other things too. The first is taking orders from the Mac.
 
 A container should be able to run in the background, outlive the terminal
 that started it, and be attached to again later. A Virtualization.framework VM
 can't do that on its own: it lives inside the process that created it, and
 dies with it. So the CLI doesn't run the VM itself. For each VM, monolith
 [spawns a daemon](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cli/container/run.go#L171-L186),
-`monolith __vmd <name>`, which owns the VM, stays up while it runs, and exits
+which owns the VM, stays up while it runs, and exits
 when it stops. (How that daemon works is a post of its own.)
-
-```
- The Mac                                  The container's VM
-
- monolith __vmd <name>  ── vsock ──────▶  monolith-init (PID 1)
- (the daemon)           ◀─ console ────     └─ your process
-```
-
 The daemon is what actually runs the VM, so the whole control plane comes down
 to handing commands to the daemon and the daemon passing them on to the VM.
 For a container, that means giving the init orders: run this process, tell me
-when it exits, signal it, resize its terminal. monolith does this with RPC
+when it exits, signal it and or resize its terminal. monolith does this with RPC
 over
 [vsock](https://man7.org/linux/man-pages/man7/vsock.7.html), a socket family
 designed for exactly this: it connects a VM to its host the way a unix socket
-connects two processes, with no network involved. On top of it runs protobuf
+connects two processes, with no network involved. On top of that, it runs protobuf
 over [ttRPC](https://github.com/containerd/ttrpc), containerd's lighter
 version of gRPC. It keeps gRPC's service definitions and generated code but
 drops HTTP/2, which suits a process that's the only thing running in its VM.
@@ -251,23 +220,23 @@ and the whole thing is
 [one small service](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/containerinit/agentpb/agent.proto#L15-L34)
 of five calls: `Start`, `Wait`, `Signal`, `ResizeTTY` and `Shutdown`.
 
-The process spec arrives in `Start` rather than being baked into the initrd,
-which is why one cached initrd serves every container. The spec is everything
+The process spec arrives in `Start` instead of being baked into the initrd,
+which is how one cached initrd serves every container. The spec is everything
 `docker run` would work out: the command, environment, user and working
 directory. One field is `tty`. With `-it`, the init runs the process on the
 VM's console as its controlling terminal, with stdin attached, so a shell gets
-job control and Ctrl+C. Without it, stdin is `/dev/null`. For a foreground
+job control and Ctrl+C. Without it, stdin goes to `/dev/null`. For a foreground
 run, the daemon holds `Start` back until your terminal is attached, so the
 first line of output isn't lost.
 
 The rest of the job comes from being PID 1. On a normal Linux system you never
-think about it: systemd is there, it works, and nobody writes their own. But
-the kernel treats process 1 differently from every other process, and once
+think about it: systemd is there and it works. But
+the kernel treats PID 1 differently from every other process, and once
 `monolith-init` stays on as PID 1, every one of those differences becomes its
 problem.
 
 There's a familiar version of this in Docker, where your process *is* PID 1
-inside the container. That's why Ctrl+C sometimes does nothing there, and why
+inside the container. [That's why Ctrl+C sometimes does nothing there](https://docs.docker.com/reference/cli/docker/container/attach/), and why
 [tini](https://github.com/krallin/tini) and `docker run --init` exist. In
 monolith the roles are split: `monolith-init` is PID 1, and nginx or postgres
 runs as its child, as an ordinary process. So the init has to get the
@@ -312,8 +281,7 @@ the kernel hands the orphan to PID 1, and PID 1 has to collect it. A zombie uses
 almost no memory, but it holds on to its process ID, and process IDs are
 limited (`pid_max`, typically 32,768). An init that doesn't collect them
 slowly fills the process table, until `fork` fails and nothing in the
-container can start a new process, not even a shell. A container running
-a shell script that starts background jobs makes orphans all the time.
+container can start a new process, not even a shell.
 
 So `monolith-init` doesn't just wait for the container's process. It
 [waits for *any* child](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L231-L250),
@@ -322,8 +290,7 @@ exits.
 
 The `128 + signal` is the shell's convention, which
 [Docker follows too](https://github.com/opencontainers/runc/blob/v1.3.0/libcontainer/utils/utils.go#L19-L24),
-through runc: a
-process killed by `SIGKILL` (9) exits with 137.
+through runc: a process killed by `SIGKILL` (9) exits with 137.
 
 If PID 1 exits, the kernel panics. In a container VM that's not a disaster,
 since `panic=-1` ends the VM straight away, but it's a terrible way to
@@ -334,23 +301,22 @@ and every failure, from a disk that won't mount to a command that doesn't
 exist, becomes an exit code the daemon can report:
 [125, 126 or 127](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/containerinit/spec.go#L29-L34),
 the same codes `docker run` uses for "the runtime failed", "not executable"
-and "not found". The init then shuts down normally. A broken container looks
-like a failed command, not a broken machine.
+and "not found". The init then shuts down normally. This way, a broken container looks
+like a failed command and not a broken machine.
 
 In Docker, a runtime called runc also sets up a lot of small things before a
-container's process starts, and images quietly depend on all of them. With no
-runc, the init does them itself: it
+container's process starts, and most images depend on all of them. With no
+runc, the init does them itself. It
 [creates the links in `/dev`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L121-L137)
-that images log to, like `/dev/stdout`; it
+that images log to, like `/dev/stdout`,
 [writes the hostname, `/etc/hosts` and `/etc/resolv.conf`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L151),
-using the DNS servers the kernel learned from `ip=dhcp`; it
+using the DNS servers the kernel learned from `ip=dhcp`,
 [resolves the image's `USER`](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/containerinit/user.go#L22-L26)
-against the image's own `/etc/passwd` and `/etc/group`; it
+against the image's own `/etc/passwd` and `/etc/group`,
 [raises the open-file limit](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/agent_linux.go#L167-L172)
-to Docker's; and it
+to Docker's, and
 [grows the filesystem](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/grow_linux.go#L14-L17)
-to fill the container's `--disk` size. Most of these were bugs first, and the
-fix was me finding out which detail Docker had been taking care of all along.
+to fill the container's `--disk` size.
 
 When the main process exits, the container is over, but there may still be
 stragglers: daemons it started, background jobs. The init
@@ -358,21 +324,18 @@ stragglers: daemons it started, background jobs. The init
 collects the zombies, flushes the disk and remounts the root filesystem
 read-only, so the next `start` has no journal to replay. Then it
 [powers the VM off](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L67-L73).
-Not exits: powers off. PID 1 doesn't get to exit.
-
-There's one catch in that last step. The exit code reaches the Mac as the
-reply to the daemon's `Wait` call, and powering off is instant. If the init
-powered off the moment the process exited, the reply could still be in flight
+Mind you, PID 1 doesn't get to exit, so it needs to power off. There's a catch in the last step though. 
+The exit code reaches the Mac as thereply to the daemon's `Wait` call, and powering off is instant.
+If the init powered off the moment the process exited, the reply could still be in flight
 when the VM disappeared, and the CLI would never learn how the container
 ended. So the init waits for permission.
 [After cleaning up](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/cmd/monolith-init/main_linux.go#L52-L64),
 it waits, for up to two seconds, for the daemon to call `Shutdown`. The daemon
-only does that
-[once it has the exit code and has written it to disk](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/container_agent.go#L142-L147).
+only does that [once it has the exit code and has written it to disk](https://github.com/bubunyo/monolith/blob/827f9fab90c6bba762680fecdca145ceda735590/vm/container_agent.go#L142-L147).
 Then the VM goes away.
 
 ## Conclusion
 So there. Everything it takes in PID 1 to run a container. Other init systems do more, because people
-expect more of them. But for monolith containers, it has one job; here is an image, run it. It means
-we get to skip a lot of the details that make most Linux systems work the way they should. For containers,
-it turns out, this is quite enough.
+expect more of them. But for monolith containers, it has one job; here is an image, run it. This means
+we get to skip a lot of the details that make most Linux systems work the way they do. For containers,
+it turns out, this is actually quite enough.
